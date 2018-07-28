@@ -32,7 +32,10 @@ export class ProductsComponent   {
   constructor(private appservice:AppService) { }
 
   addproduct(product){
-    this.appservice.addtocart(product,1);
+    //the method return true if success;
+   if(this.appservice.addtocart(product,1)){
+    alert("Product added to the cart");
+   }
    
   }
   

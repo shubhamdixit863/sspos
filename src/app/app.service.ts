@@ -3,12 +3,14 @@ import { WebStorageService, LOCAL_STORAGE } from "angular-webstorage-service";
 import { Cart } from "./models/cart.model";
 import { Product } from "./models/product.model";
 import { reject } from "../../node_modules/@types/q";
+import { Subject } from "rxjs";
 
 @Injectable({providedIn:'root'})
 export class AppService{
      key="Product";
     cartsize:number;
     mycart:Cart[]=[];//creating a cart array
+    private cartupdated=new Subject<Cart[]>();
  constructor(@Inject(LOCAL_STORAGE) private storage: WebStorageService) {
          
     }
@@ -40,7 +42,7 @@ export class AppService{
   
   
   console.log(this.storage.get(this.key));
-
+return true;
  }   
 
  getproducts(){

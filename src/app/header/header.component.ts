@@ -8,11 +8,12 @@ import { AppService } from '../app.service';
 })
 export class HeaderComponent implements OnInit {
 
-  totalproducts:number;
+  //totalproducts:number;
   constructor(private appservice:AppService) { }
-
+  //totalproducts= this.appservice.gettotalproducts();
+  
   ngOnInit() {
-   this.totalproducts= this.appservice.gettotalproducts();
+   
   }
 
 }
