@@ -182,6 +182,11 @@ td .invert {
     font-size:20px;
     text-align:center;
 }
-
+.form-group{
+    margin-left: -300px;
+}
+#txt{
+    margin-left:-300px
+}
 
 
