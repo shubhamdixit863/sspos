@@ -13,5 +13,19 @@ export class CartComponent implements OnInit {
   ngOnInit() {
    
   }
+  quantity:number=1
+  
+  private myMethod(event:any):void
+{
+
+  var x=3;
+  alert("hello="+x);
+}
+private increment(event:any):void{
+  this.quantity=this.quantity+1
+}
+private decrement(event:any):void{
+  this.quantity=this.quantity-1
+}
 
 }

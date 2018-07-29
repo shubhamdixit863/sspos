@@ -12,9 +12,13 @@ import { BenefitComponent } from './benefit/benefit.component';
 import { CombinedComponent } from './combined/combined.component';
 import { CartComponent } from './cart/cart.component';
 import { StorageServiceModule} from 'angular-webstorage-service';
+import { AboutComponent } from './about/about.component';
+import { ContactComponent } from './contact/contact.component';
 const routes: Routes = [
   { path: 'cart', component: CartComponent },
+  { path: 'about', component: AboutComponent },
   { path: '', component: CombinedComponent },
+
 ];
 
 @NgModule({
@@ -29,6 +33,8 @@ const routes: Routes = [
     BenefitComponent,
     CombinedComponent,
     CartComponent,
+    AboutComponent,
+    ContactComponent,
   
   ],
   imports: [
