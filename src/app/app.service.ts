@@ -126,4 +126,18 @@ paymentstatus(status:string,intent:string, orderID:string,payerID:string,payment
 
 }
 
+gettotalcartvalue(){
+    const storedcart:Cart[]= this.getproducts();
+    var totalprice:number=0;
+    for(var i=0;i<storedcart.length;i++){
+        totalprice=totalprice+storedcart[i].product.price;
+
+    }
+
+    console.log(totalprice);
+    return totalprice;
+}
+
+
+
 }

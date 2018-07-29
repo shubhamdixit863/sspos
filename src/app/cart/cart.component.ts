@@ -9,15 +9,26 @@ import { Cart } from '../models/cart.model';
 })
 export class CartComponent implements OnInit {
   carts:Cart[]=[];
+  cartvalue:number; //total cost of cart 
   
   constructor(private appservice:AppService) { }
   getcartproducts(){
     this.carts=this.appservice.getproducts();
   }
 
+  getcartvalue(){
+   this.cartvalue= this.appservice.gettotalcartvalue();
+  }
+
+removeproduct(product){
+  this.appservice.removeoneproduct(product);
+  alert("Product removed ");
+  location.reload();
+}
+
   ngOnInit() {
   this.getcartproducts();
-   
+   this.getcartvalue();
   }
 
 
