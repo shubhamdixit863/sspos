@@ -15,7 +15,7 @@ var options = {
   host: 'localhost',
   port: 3306,
   user: 'root',
-  password: '',
+  password: 'root',
   database: 'abtus52q_beebags'
 };
 const sessionStore = new MySQLStore(options);
