@@ -70,6 +70,35 @@ gettotalproducts(){
 
 }
 
+removeoneproduct(userproduct:Product){
+    const storedcart:Cart[]= this.getproducts();
+    //checking if the incoming product is already there
+    let item = storedcart.find(p => p.product.id == userproduct.id); 
+    //if incoming product is not there
+    var index = storedcart.indexOf(item);
+    if (item === undefined) {
+        console.log("product donot exists");
 
+    }
+
+else{
+    storedcart.splice(index, 1);
+    this.storage.set(this.key, storedcart);//saving cart to the local storage
+}
+
+}
+
+
+removeall(){
+    const storedcart:Cart[]= this.getproducts();
+    if(storedcart!=null){
+       
+        this.storage.remove(this.key);
+    }
+
+    else if(storedcart==null){
+        console.log("Nothing to remove");
+    }
+}
 
 }

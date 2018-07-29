@@ -11,7 +11,10 @@ export class HeaderComponent implements OnInit {
   //totalproducts:number;
   constructor(private appservice:AppService) { }
   //totalproducts= this.appservice.gettotalproducts();
-  
+  emptycart(){
+    this.appservice.removeall();
+    location.reload();
+  }
   ngOnInit() {
    
   }
