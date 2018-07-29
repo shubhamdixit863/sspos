@@ -6,7 +6,7 @@ module.exports = knex({
         connection: {
                 database: 'abtus52q_beebags',
                 host: 'localhost',
-                password: '',
+                password: 'root',
                 user: 'root',
                 dateStrings: true
         }

@@ -89,6 +89,17 @@ routes.post('/login',
       res.json( editor.data() );
             });
 
+         //apiroutes for angular front end
+         
+         routes.post("/api/payment",(req,res)=>{
+
+          //console.log(req.body);
+          res.json({
+            message:'Data catched by server'
+          });
+
+         });
+
         function authenticationMiddleware () {  
           return (req, res, next) => {
             console.log(`req.session.passport.user: ${JSON.stringify(req.session.passport)}`);
