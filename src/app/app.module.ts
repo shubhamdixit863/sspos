@@ -12,9 +12,13 @@ import { BenefitComponent } from './benefit/benefit.component';
 import { CombinedComponent } from './combined/combined.component';
 import { CartComponent } from './cart/cart.component';
 import { StorageServiceModule} from 'angular-webstorage-service';
+import { ContactComponent } from './contact/contact.component';
+import { FormsModule } from '../../node_modules/@angular/forms';
 const routes: Routes = [
   { path: 'cart', component: CartComponent },
   { path: '', component: CombinedComponent },
+  { path: 'products', component: ProductsComponent },
+  { path: 'contact', component: ContactComponent },
 ];
 
 @NgModule({
@@ -29,12 +33,14 @@ const routes: Routes = [
     BenefitComponent,
     CombinedComponent,
     CartComponent,
+    ContactComponent,
   
   ],
   imports: [
     BrowserModule,
     RouterModule.forRoot(routes),
     StorageServiceModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
