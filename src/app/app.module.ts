@@ -12,6 +12,7 @@ import { BenefitComponent } from './benefit/benefit.component';
 import { CombinedComponent } from './combined/combined.component';
 import { CartComponent } from './cart/cart.component';
 import { StorageServiceModule} from 'angular-webstorage-service';
+import { FormsModule } from '../../node_modules/@angular/forms';
 import { NgxPayPalModule } from 'ngx-paypal';
 import { HttpClientModule } from '@angular/common/http';
 import { AboutComponent } from './about/about.component';
@@ -20,6 +21,9 @@ const routes: Routes = [
   { path: 'cart', component: CartComponent },
   { path: 'about', component: AboutComponent },
   { path: '', component: CombinedComponent },
+
+  { path: 'products', component: ProductsComponent },
+  { path: 'contact', component: ContactComponent },
 
 ];
 
@@ -43,8 +47,10 @@ const routes: Routes = [
     BrowserModule,
     RouterModule.forRoot(routes),
     StorageServiceModule,
+    FormsModule,
     NgxPayPalModule,
     HttpClientModule
+
   ],
   providers: [],
   bootstrap: [AppComponent]
