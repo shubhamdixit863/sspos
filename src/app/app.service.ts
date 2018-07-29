@@ -4,14 +4,18 @@ import { Cart } from "./models/cart.model";
 import { Product } from "./models/product.model";
 import { reject } from "../../node_modules/@types/q";
 import { Subject } from "rxjs";
+import { HttpClient } from '@angular/common/http';
+import { Payment } from "./models/payment.model";
+
 
 @Injectable({providedIn:'root'})
 export class AppService{
      key="Product";
     cartsize:number;
     mycart:Cart[]=[];//creating a cart array
+    mypayment:Payment;
     private cartupdated=new Subject<Cart[]>();
- constructor(@Inject(LOCAL_STORAGE) private storage: WebStorageService) {
+ constructor(@Inject(LOCAL_STORAGE) private storage: WebStorageService,private http:HttpClient) {
          
     }
 
@@ -99,6 +103,23 @@ removeall(){
     else if(storedcart==null){
         console.log("Nothing to remove");
     }
+}
+
+//adding order to database after payment
+paymentstatus(status:string,intent:string, orderID:string,payerID:string,paymentID:string,paymentToken:string)
+{
+    this.mypayment={intent:intent,orderID:orderID,payerID:payerID,paymentID:paymentID,paymentToken:paymentToken};
+    //retrieving product on the cart after the payment is success to be stored in database
+    const datbasecart:Cart[]= this.getproducts();
+    //this whole json object will be stored in database
+    const databaseinput={status:status,paymentinfo:this.mypayment,productinfo:datbasecart};
+    this.http.post<{message:string}>("http://localhost:3000/api/payment",databaseinput).subscribe((message)=>{
+          
+        console.log(message.message);
+            
+             
+         });
+
 }
 
 }
