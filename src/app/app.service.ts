@@ -53,8 +53,12 @@ return true;
     const storedCart = this.storage.get(this.key);
     if (storedCart != null) {
         this.mycart = storedCart;
+        return this.mycart;
     }
-    return this.mycart;
+else{
+    return null;
+}
+    
 }
 //function to show the number of products currently present in cart
 gettotalproducts(){
