@@ -182,3 +182,18 @@ td .invert {
     font-size:20px;
     text-align:center;
 }
+
+.form-group{
+    margin-left: -300px;
+}
+#txt{
+    margin-left:-300px
+}
+.form-button{
+    
+    margin-left:700px;
+}
+.payp{
+    margin-left: 200px;
+}
+

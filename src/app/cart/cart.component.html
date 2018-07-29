@@ -47,13 +47,12 @@
       </div>
       <hr>
       <div class="row">
-      <div class="col-3"></div>
-       <div class="col-6">
+       <div class="col-3">
            <br>
         
         <fieldset>
-            <legend><b>Enter Details:</b></legend>
-          
+            <legend id="txt"><b>Enter Details:</b></legend>
+          <br>  
         <form>
         <div class="form-group">
           <label for="exampleInputEmail1">Name:</label>
@@ -66,7 +65,7 @@
         </div>
         <div class="form-group">
           <label for="exampleInputPassword1">Phone Number:</label>
-          <input type="password" class="form-control" id="exameInputPassword1" placeholder="Password">
+          <input type="text" class="form-control" id="exameInputPassword1" placeholder="Phone No">
         </div>
       
       
@@ -74,7 +73,10 @@
           <label for="exampleTextarea">Address:</label>
           <textarea class="form-control" id="exampleTextarea" rows="3"></textarea>
         </div>
-        <button type="button" class="btn btn-default" (click)="myMethod($event)">Submit</button>
+        <div class="form-button">
+          <button type="button" class="ui orange basic button" (click)="myMethod($event)">Cash On Delivery</button>
+        </div>
+        
   </form>
   </fieldset>
   </div>
@@ -83,7 +85,10 @@
   </div>
   </div>
   </div>
-  <ngx-paypal [config]="payPalConfig"></ngx-paypal>
+  
+    <ngx-paypal [config]="payPalConfig"></ngx-paypal>
+  
+  
  
 
   </div>
