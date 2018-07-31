@@ -17,12 +17,19 @@ import { NgxPayPalModule } from 'ngx-paypal';
 import { HttpClientModule } from '@angular/common/http';
 import { AboutComponent } from './about/about.component';
 import { ContactComponent } from './contact/contact.component';
+import { PaymentComponent } from './payment/payment.component';
+import { AuthGuard } from './auth.guard';
+import { FlashMessagesModule } from 'angular2-flash-messages';
+import { FinalstatusComponent } from './finalstatus/finalstatus.component';
+
+
 const routes: Routes = [
   { path: 'cart', component: CartComponent },
   { path: 'about', component: AboutComponent },
   { path: '', component: CombinedComponent },
 
-  { path: 'products', component: ProductsComponent },
+  { path: 'payment', component: PaymentComponent,canActivate:[AuthGuard] },
+  { path: 'orderstatus', component: FinalstatusComponent,canActivate:[AuthGuard] },
   { path: 'contact', component: ContactComponent },
 
 ];
@@ -41,6 +48,8 @@ const routes: Routes = [
     CartComponent,
     AboutComponent,
     ContactComponent,
+    PaymentComponent,
+    FinalstatusComponent,
   
   ],
   imports: [
@@ -49,10 +58,11 @@ const routes: Routes = [
     StorageServiceModule,
     FormsModule,
     NgxPayPalModule,
-    HttpClientModule
+    HttpClientModule,
+    FlashMessagesModule.forRoot()
 
   ],
-  providers: [],
+  providers: [AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,7 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { AppService } from '../app.service';
 import { Cart } from '../models/cart.model';
-
+import { PayPalConfig, PayPalEnvironment, PayPalIntegrationType } from 'ngx-paypal';
+import {  NgForm } from '@angular/forms';
+import { User } from '../models/user.model';
+import { Router } from '@angular/router';
+import { FlashMessagesService } from 'angular2-flash-messages';
 @Component({
   selector: 'app-cart',
   templateUrl: './cart.component.html',
@@ -9,9 +13,13 @@ import { Cart } from '../models/cart.model';
 })
 export class CartComponent implements OnInit {
   carts:Cart[]=[];
-  cartvalue:number; //total cost of cart 
+  cartvalue:number; //total cost of cart
+  emptydata:any;
+ 
+  flag:number=0;
   
-  constructor(private appservice:AppService) { }
+  constructor(private appservice:AppService,private router: Router,private _flashMessagesService: FlashMessagesService) { }
+   
   getcartproducts(){
     this.carts=this.appservice.getproducts();
   }
@@ -26,27 +34,62 @@ removeproduct(product){
   location.reload();
 }
 
-  ngOnInit() {
+usersubmit(formObj:NgForm){
+ if(formObj.value.name=="" || formObj.value.email=="" || formObj.value.phone=="" || formObj.value.address=="" || formObj.value.gender=="")
+{
+  this._flashMessagesService.grayOut(true); // turn on gray out feature
+  this._flashMessagesService.show('Sorry one or more of your field is empty', { cssClass: 'alert-danger', timeout: 10000 });
+}
+
+else{
+
+
+ var user:User={name:formObj.value.name,email:formObj.value.email,phone:formObj.value.phone,address:formObj.value.address,payment:formObj.value.gender};
+ var currentcart=this.appservice.getproducts();
+ 
+this.appservice.userinsert(user,currentcart).subscribe(
+  data => {this.emptydata=data;
+    console.log(this.emptydata.message);
+    
+  },
+  error => { console.log(error); // Error if any
+  },
+  ()=> { 
+    //saving cart token to session storage for checking purpose
+    this.appservice.storecartoken(this.emptydata.message);
+    console.log(this.emptydata.message);
+
+    if(formObj.value.gender=="COD"){
+      this.appservice.removeall();//removing cart so that we can start afresh
+     
+      //this._flashMessagesService.show('Thanks For your Order ,Your transaction id is'+this.appservice.getcarttoken(), { cssClass: 'alert-success', timeout: 100000 });
+      //this.router.navigate(['/orderstatus']);
+      //this.appservice.removecarttoken();//removing cart token as well
+      //alert("Thanks For Your Cash On Delivery Order");
+      location.href="/orderstatus";
+      
+     
+    }
+    
+    else if(formObj.value.gender=="Paypal"){
+      alert("Paypal");
+     //location.href="/payment";
+     this.router.navigate(['/payment']);
+    }
+ 
+  }
+ 
+)
+
+ 
+  
+}
+}
+
+
+  ngOnInit(): void {
   this.getcartproducts();
    this.getcartvalue();
-  }
-
-
-
-
-  quantity:number=1
   
-  private myMethod(event:any):void
-{
-
-  var x=3;
-  alert("hello="+x);
-}
-private increment(event:any):void{
-  this.quantity=this.quantity+1
-}
-private decrement(event:any):void{
-  this.quantity=this.quantity-1
-}
-
+  }
 }

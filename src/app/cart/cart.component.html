@@ -1,6 +1,9 @@
-<app-header></app-header>
 
-<div class="checkout" style="margin-top:200px;" *ngIf="carts?.length>0;else other_content">
+
+
+
+<div  class="checkout" style="margin-top:200px;" *ngIf="carts?.length>0;else other_content">
+   
  
   <div class="container">
       <h3 class="animated wow slideInLeft" data-wow-delay=".5s">Your shopping cart</h3>
@@ -41,55 +44,67 @@
       </div>
       <div class="checkout-left">	
         <div class="checkout-left-basket animated wow slideInLeft" data-wow-delay=".5s">
-        <a  class="glyphicon glyphicon-menu-left" aria-hidden="true" href="/">Continue Shopping</a>
+        <a  class="ui orange basic button" href="/">Continue Shopping</a>
         
         <div class="clearfix"> </div>
       </div>
       <hr>
       <div class="row">
-       <div class="col-3">
+       <div class="col-6">
            <br>
         
         <fieldset>
             <legend id="txt"><b>Enter Details:</b></legend>
           <br>  
-        <form>
+         
+        <form  #userform = "ngForm" (submit)="usersubmit(userform)">
         <div class="form-group">
           <label for="exampleInputEmail1">Name:</label>
-          <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+          <input required type="text" name="name" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" ngModel>
           <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
         </div>
         <div class="form-group">
           <label for="exampleInputPassword1">Email:</label>
-          <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+          <input  required type="email" class="form-control" id="exampleInputPassword1" name="email" placeholder="Email" ngModel>
         </div>
         <div class="form-group">
           <label for="exampleInputPassword1">Phone Number:</label>
-          <input type="text" class="form-control" id="exameInputPassword1" placeholder="Phone No">
+          <input  required type="text" class="form-control" id="exameInputPassword1" name="phone" placeholder="Phone No" ngModel>
         </div>
       
       
         <div class="form-group">
           <label for="exampleTextarea">Address:</label>
-          <textarea class="form-control" id="exampleTextarea" rows="3"></textarea>
+          <textarea  required class="form-control" id="exampleTextarea" rows="3" name="address" ngModel></textarea>
         </div>
-        <div class="form-button">
-          <button type="button" class="ui orange basic button" (click)="myMethod($event)">Cash On Delivery</button>
-        </div>
+       
+        <div class="form-group">
+            
+            <input  required type="radio" name="gender" value="COD" ngModel > COD<br>
+  <input   required type="radio" name="gender" value="Paypal" ngModel>Paypal<br>
+          </div>
+         
+
+         <input type="submit" name="submit" class="ui orange basic button btn-block" value="Proceed To Payment">
+          
+  
         
   </form>
   </fieldset>
   </div>
-  <div class="col-3"></div>
+  <div  class="col-6" style="margin-top:260px;">
+      <flash-messages></flash-messages>
+
+  </div>
      
   </div>
   </div>
   </div>
   
-    <ngx-paypal [config]="payPalConfig"></ngx-paypal>
+    
   
   
- 
+  
 
   </div>
   <ng-template #other_content>
@@ -102,3 +117,5 @@
     </div>
   
   </ng-template>
+
+

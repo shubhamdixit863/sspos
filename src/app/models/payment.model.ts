@@ -4,5 +4,8 @@ export class Payment{
     payerID:string;
     paymentID:string;
     paymentToken:string;
+    
+    billingid:string;
+    status:string;
 
 }

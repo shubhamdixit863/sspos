@@ -1,11 +1,13 @@
 import { Injectable, Inject  } from "@angular/core";
-import { WebStorageService, LOCAL_STORAGE } from "angular-webstorage-service";
+import { WebStorageService, LOCAL_STORAGE ,SESSION_STORAGE} from "angular-webstorage-service";
 import { Cart } from "./models/cart.model";
 import { Product } from "./models/product.model";
-import { reject } from "../../node_modules/@types/q";
+
 import { Subject } from "rxjs";
 import { HttpClient } from '@angular/common/http';
 import { Payment } from "./models/payment.model";
+import { User } from "./models/user.model";
+import { map } from 'rxjs/operators';
 
 
 @Injectable({providedIn:'root'})
@@ -14,14 +16,26 @@ export class AppService{
     cartsize:number;
     mycart:Cart[]=[];//creating a cart array
     mypayment:Payment;
+    extractData:string;
     private cartupdated=new Subject<Cart[]>();
- constructor(@Inject(LOCAL_STORAGE) private storage: WebStorageService,private http:HttpClient) {
+ constructor(@Inject(LOCAL_STORAGE) private storage: WebStorageService,private http:HttpClient,@Inject(SESSION_STORAGE) private sessionstorage: WebStorageService) {
          
     }
 
  addtocart(userproduct:Product,quantity:number){
      //calling get products in local stored cart to fetch product
     const storedcart:Cart[]= this.getproducts();
+    if(storedcart.length==0){
+         //creating a new cart element
+         const newcart:Cart={product:userproduct,quantity:quantity};
+         //pushing that product in already stored cart
+         storedcart.push(newcart);
+         //saving the cart again
+         this.storage.set(this.key, storedcart);//saving cart to the local storage
+    }
+    else if(storedcart.length>0){
+
+   
     //checking if the incoming product is already there
     let item = storedcart.find(p => p.product.id == userproduct.id); 
     //if incoming product is not there
@@ -37,13 +51,14 @@ export class AppService{
     //if the product existsthen just increaing the quantity of item
    else{
     item.quantity += quantity;
+    item.product.price=item.quantity*userproduct.price;//changin total price according to quantity
     //and saving the cart again to local browser storage
     this.storage.set(this.key, storedcart);//saving cart to the local storage
     console.log("Quantity of the product increased");
 
    }
     
-  
+}
   
   console.log(this.storage.get(this.key));
 return true;
@@ -56,7 +71,7 @@ return true;
         return this.mycart;
     }
 else{
-    return null;
+    return this.mycart ;//returning empty array here 
 }
     
 }
@@ -110,19 +125,11 @@ removeall(){
 }
 
 //adding order to database after payment
-paymentstatus(status:string,intent:string, orderID:string,payerID:string,paymentID:string,paymentToken:string)
+userinsert(user:User,cart:Cart[])
 {
-    this.mypayment={intent:intent,orderID:orderID,payerID:payerID,paymentID:paymentID,paymentToken:paymentToken};
-    //retrieving product on the cart after the payment is success to be stored in database
-    const datbasecart:Cart[]= this.getproducts();
-    //this whole json object will be stored in database
-    const databaseinput={status:status,paymentinfo:this.mypayment,productinfo:datbasecart};
-    this.http.post<{message:string}>("http://localhost:3000/api/payment",databaseinput).subscribe((message)=>{
-          
-        console.log(message.message);
-            
-             
-         });
+  
+    var databaseinput={user:user,cart:cart};
+  return  this.http.post("http://localhost:3000/api/payment",databaseinput);
 
 }
 
@@ -134,10 +141,41 @@ gettotalcartvalue(){
 
     }
 
-    console.log(totalprice);
+    //console.log(totalprice);
     return totalprice;
 }
+//after form is submiited we get a token to store it in and check for passing payment page
+storecartoken(token:string){
+    this.sessionstorage.set("paymentkey", token);
+}
+//this function returns cart token
+getcarttoken(){
+    return this.sessionstorage.get("paymentkey");
+}
+removecarttoken(){
+    this.sessionstorage.remove("paymentkey");
+}
+//update cash on delivery payment after token
+updatecod(token:string){
+   
+    return  this.http.post("http://localhost:3000/api/payment/update",token);
+}
+//getpayment status by sending session token 
+getpaymentstaus(id:string){
+    let headers = new Headers();
+    //headers.append('Content-Type', 'application/json');
+    //headers.append('id', id);
+    //let params = new URLSearchParams();
+    //params.append("someParamKey", id)
+    var x = { property:id }
 
+    return this.http.get<any>('http://localhost:3000/api/payment/status', { params: x } )
+   //var id=this.sessionstorage.get("paymentkey");
+     //this.http.get<any>("http://localhost:3000/api/payment/status");
 
+}
+paypalpayment(payment:Payment){
+    return this.http.post("http://localhost:3000/api/payment/paypal",payment)
+}
 
 }
