@@ -26,6 +26,8 @@ import {  CanDeactivateGuard } from './payment.guard';
 import { PaymentfailComponent } from './paymentfail/paymentfail.component';
 import { BlogComponent } from './blog/blog.component';
 import { FaqsComponent } from './faqs/faqs.component';
+import { TermsconditionComponent } from './termscondition/termscondition.component';
+import { RefundPolicyComponent } from './refund-policy/refund-policy.component';
 
 
 const routes: Routes = [
@@ -40,6 +42,9 @@ const routes: Routes = [
   { path: 'shop', component: ShopComponent },
   { path: 'blog', component: BlogComponent },
   { path: 'faqs', component: FaqsComponent },
+  { path: 'termscondition', component: TermsconditionComponent },
+  { path: 'refundpolicy', component: RefundPolicyComponent },
+
 
 ];
 
@@ -63,7 +68,9 @@ const routes: Routes = [
     PaymentfailComponent,
   
     BlogComponent,
-    FaqsComponent
+    FaqsComponent,
+    TermsconditionComponent,
+    RefundPolicyComponent
 
   ],
   imports: [

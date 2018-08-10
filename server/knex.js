@@ -6,7 +6,7 @@ module.exports = knex({
         connection: {
                 database: 'sspos',
                 host: 'localhost',
-                password: '',
+                password: 'root',
                 user: 'root',
                 dateStrings: true
         }
