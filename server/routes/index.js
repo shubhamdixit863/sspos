@@ -150,6 +150,25 @@ routes.post('/login',
       });
 
       routes.post("/api/payment/paypal",(req,res)=>{
+        let intent=req.body.intent;
+        let orderID=req.body.orderID;
+        let payerID=req.body.payerID;
+        let paymentID=req.body.paymentID;
+        let paymentToken=req.body.paymentToken;
+        let billingid=req.body.billingid;
+        let status=req.body.status;
+        let customerid=req.body.customerid;
+        var records = [
+          [customerid,intent,orderID,payerID,paymentID,paymentToken,billingid,status],
+          
+        ];
+
+        var sql = "INSERT INTO `paypal_payments`(	`customerid`, `intent`, `orderid`, `payerid`, `paymentid`, `paymenttoken`, `billingid`, `payment_status`) VALUES ?";
+        con.query(sql,[records], function (err, result) {
+          if (err) throw err;
+          console.log("1 record inserted");
+        });
+
         console.log(req.body);
         res.json({
           message:"Post request Paypal received"

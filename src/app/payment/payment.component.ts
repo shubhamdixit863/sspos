@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { PayPalConfig, PayPalEnvironment, PayPalIntegrationType } from 'ngx-paypal';
 import { AppService } from '../app.service';
 import { Payment } from '../models/payment.model';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-payment',
   templateUrl: './payment.component.html',
@@ -10,18 +11,30 @@ import { Payment } from '../models/payment.model';
 export class PaymentComponent implements OnInit {
 //totalpay:number;
 payment:Payment;
-  constructor(private appservice:AppService) { }
+changesSaved=false;
+  constructor(private appservice:AppService,private router:Router) { }
 
   ngOnInit() {
     this.initConfig();
+    
    }
 
  
   public payPalConfig?: PayPalConfig;
 
-    
+hasChanges(){
+  //return true;
+  console.log(this.changesSaved);
+  return this.changesSaved;
+ 
+  
+}    
+
+
+
 
   private initConfig(): void {
+   
     this.payPalConfig = new PayPalConfig(PayPalIntegrationType.ClientSideREST, PayPalEnvironment.Sandbox, {
       commit: true,
       client: {
@@ -31,10 +44,14 @@ payment:Payment;
         label: 'paypal',
       },
       onPaymentComplete: (data, actions) => {
+        this.changesSaved=true;
+        console.log(this.changesSaved);
+        
         
         console.log("success");
         console.log(data);
-        this.payment={intent:data.intent,orderID:data.orderID,payerID:data.payerID,paymentID:data.paymentID,paymentToken:data.paymentToken,billingid:"NA",status:"Payment Success"}
+        //storing customerid from session token as well
+        this.payment={customerid:this.appservice.getcarttoken(),intent:data.intent,orderID:data.orderID,payerID:data.payerID,paymentID:data.paymentID,paymentToken:data.paymentToken,billingid:"NA",status:"Payment Success"}
         this.appservice.paypalpayment(this.payment).subscribe( 
           data => {
           console.log(data);
@@ -42,11 +59,34 @@ payment:Payment;
         },
         error => { console.log(error); // Error if any
         },
-        ()=> {}
+        ()=> {
+          this.appservice.removeall();//removing cart so that we can start afresh
+
+          this.router.navigate(['/orderstatus']);
+        }
       )
       },
       onCancel: (data, actions) => {
+        this.changesSaved=true;
+        console.log(this.changesSaved);
+        //this.changesSaved=true;
         console.log("Cancel");
+        console.log(data);
+       this.payment={customerid:this.appservice.getcarttoken(),intent:"sale",orderID:"NA",payerID:"NA",paymentID:"User Cancelled", paymentToken:"User Cancelled",billingid:"NA",status:"Payment Failed"}
+        this.appservice.paypalpayment(this.payment).subscribe( 
+          data => {
+          console.log(data);
+          
+        },
+        error => { 
+          console.log(error); // Error if any
+        },
+        ()=> {
+          //this.appservice.removeall();//removing cart so that we can start afresh
+
+          this.router.navigate(['/paymentfail']);
+        }
+      )
         console.log(data);
         //this.appservice.paymentstatus("success",data.intent,data.orderID,data.payerID,data.paymentID,data.paymentToken);
       },
