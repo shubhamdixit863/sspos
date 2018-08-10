@@ -21,6 +21,8 @@ import { PaymentComponent } from './payment/payment.component';
 import { AuthGuard } from './auth.guard';
 import { FlashMessagesModule } from 'angular2-flash-messages';
 import { FinalstatusComponent } from './finalstatus/finalstatus.component';
+import { BlogComponent } from './blog/blog.component';
+import { FaqsComponent } from './faqs/faqs.component';
 
 
 const routes: Routes = [
@@ -31,6 +33,8 @@ const routes: Routes = [
   { path: 'payment', component: PaymentComponent,canActivate:[AuthGuard] },
   { path: 'orderstatus', component: FinalstatusComponent,canActivate:[AuthGuard] },
   { path: 'contact', component: ContactComponent },
+  { path: 'blog', component: BlogComponent },
+  { path: 'faqs', component: FaqsComponent },
 
 ];
 
@@ -50,7 +54,9 @@ const routes: Routes = [
     ContactComponent,
     PaymentComponent,
     FinalstatusComponent,
-  
+    BlogComponent,
+    FaqsComponent
+
   ],
   imports: [
     BrowserModule,
