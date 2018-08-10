@@ -16,6 +16,7 @@ export class FinalstatusComponent implements OnInit {
   constructor(private appservice:AppService) { }
 
   ngOnInit() {
+    
     this.appservice.getpaymentstaus(this.appservice.getcarttoken()).subscribe(
       data => {
         console.log(data.message[0].name);

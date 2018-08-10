@@ -38,6 +38,7 @@
     "mysql": "^2.16.0",
     "ngx-bootstrap": "^3.0.1",
     "ngx-paypal": "^3.0.0",
+    "ngx-spinner": "^6.1.2",
     "node-datetime": "^2.0.7",
     "nodemon": "^1.18.3",
     "passport": "^0.4.0",
