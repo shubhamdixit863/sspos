@@ -20,6 +20,7 @@ export class CartComponent implements OnInit {
   
   constructor(private appservice:AppService,private router: Router,private _flashMessagesService: FlashMessagesService) { }
    
+
   getcartproducts(){
     this.carts=this.appservice.getproducts();
   }
@@ -37,8 +38,8 @@ removeproduct(product){
 usersubmit(formObj:NgForm){
  if(formObj.value.name=="" || formObj.value.email=="" || formObj.value.phone=="" || formObj.value.address=="" || formObj.value.gender=="")
 {
-  this._flashMessagesService.grayOut(true); // turn on gray out feature
-  this._flashMessagesService.show('Sorry one or more of your field is empty', { cssClass: 'alert-danger', timeout: 10000 });
+  
+  this._flashMessagesService.show('Sorry one or more of your field is empty', { cssClass: 'alert-danger', timeout: 2000 });
 }
 
 else{
