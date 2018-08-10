@@ -2,11 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { AppService } from '../app.service';
 
 @Component({
-  selector: 'app-finalstatus',
-  templateUrl: './finalstatus.component.html',
-  styleUrls: ['./finalstatus.component.css']
+  selector: 'app-paymentfail',
+  templateUrl: './paymentfail.component.html',
+  styleUrls: ['./paymentfail.component.css']
 })
-export class FinalstatusComponent implements OnInit {
+//this is for payment fail
+export class PaymentfailComponent implements OnInit {
   name:string;
   address:string;
   paymentid:string;
