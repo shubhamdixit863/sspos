@@ -28,15 +28,14 @@
     <!-- <script type="text/javascript" src="https://cdn.jsdelivr.net/html5shiv/3.7.3/html5shiv.min.js"></script> -->
   
 	<link rel="shortcut icon" type="image/ico" href="http://www.datatables.net/favicon.ico">
-	
-	
+
 	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.17/css/jquery.dataTables.min.css">
 	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/1.5.2/css/buttons.dataTables.min.css">
 	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/select/1.2.6/css/select.dataTables.min.css">
 	<link rel="stylesheet" type="text/css" href="../../css/editor.dataTables.min.css">
 	
 	
-	</style>
+	
 	<script type="text/javascript" language="javascript" src="https://code.jquery.com/jquery-3.3.1.js"></script>
 	<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.17/js/jquery.dataTables.min.js"></script>
 	<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/1.5.2/js/dataTables.buttons.min.js"></script>
@@ -73,14 +72,14 @@
 <table id="example" class="display" cellspacing="0" width="100%">
     <thead>
         <tr>
-            
-            <th>Name</th>
-            <th>Email</th>
-            <th>Date</th>
-          <th>Message</th>
-            <th>Phone</th>
-          
-            
+            <th>S.NO</th>
+            <th>Intent</th>
+            <th>Orderid</th>
+            <th>Payerid</th>
+            <th>Paymentid</th>
+            <th>PaymentToken</th>
+            <th>Billingid</th>
+            <th>Paymentstatus</th>
             
         </tr>
     </thead>
@@ -131,30 +130,37 @@
        
         editor = new $.fn.dataTable.Editor( {
             
-            ajax: "/enquiry",
+            ajax: "/payments",
             table: "#example",
             fields: [ {
-                    label: "First name:",
-                    name: "name"
+                    label: "Intent",
+                    name: "intent"
                 }, {
-                    label: "Email",
-                    name: "email"
+                    label: "Orderid",
+                    name: "orderid"
+                }, {
+                    label: "Payerid",
+                    name: "payerid"
                 }, 
                 {
-                label: 'Enquiry date:',
-                name:  'date_t',
-                type:  'datetime',
-                def:   function () { return new Date(); }
-            },
-                {
-                    label: "Message",
-                    name: "msg"
+                    label: "Paymentid",
+                    name: "paymentid"
                 },
                 {
-                    label: "Phone",
-                    name: "number"
+                    label: "PaymentToken",
+                    name: "paymenttoken"
+                },
+                
+                {
+                    label: "Billingid",
+                    name: "billingid"
                 },
                
+                {
+                    label: "Payamentstatus",
+                    name: "payment_status",
+                    
+                }
             ]
         } );
     
@@ -169,17 +175,18 @@
     
             dom: "Bfrtip",
             ajax: {
-                url: "/enquiry",
+                url: "/payments",
                 type: 'POST'
             },
             columns: [
-            
-                { data: "name" },
-                { data: "email" },
-                { data: "date_t" },
-                { data: "msg" },
-               { data: "number" }
-               
+            { data: "id" },
+                { data: "intent" },
+                { data: "orderid" },
+                { data: "payerid" },
+                { data: "paymentid" },
+                { data: "paymenttoken" },
+                { data: "billingid" },
+                { data: "payment_status" }
                 
             ],
             order: [ 1, 'asc' ],

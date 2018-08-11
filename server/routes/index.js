@@ -2,7 +2,7 @@ const routes = require('express').Router();
 const con=require('../mysql.js');
 const uuidv1 = require('uuid/v1');
 const dateTime = require('node-datetime');
-
+const  nodemailer = require('nodemailer');//to send mail through node
 const passport = require('passport');
 let knex=require('../knex.js');
 let {
@@ -30,6 +30,10 @@ routes.get('/', (req, res) => {
     routes.get('/cod', authenticationMiddleware (),(req, res) => {
       res.render('order')
       });
+
+      routes.get('/payments', authenticationMiddleware (),(req, res) => {
+        res.render('payments')
+        });
       
 
 routes.post('/login',
@@ -89,6 +93,31 @@ routes.post('/login',
         
             await editor.process(req.body);
             console.log("hello");
+      res.json( editor.data() );
+            });
+
+//payments table
+           
+          routes.all('/payments', async function(req, res) {
+            //console.log("System call test01");
+            console.log(JSON.stringify(req.body));
+            
+            
+            let editor = new Editor( knex, 'paypal_payments' )
+            .fields(
+                new Field( 'id' ),
+                new Field( 'intent' ),
+                new Field( 'orderid' ),
+                new Field( 'payerid' ),
+                new Field( 'paymentid' ),
+                new Field( 'paymenttoken' ),
+                new Field( 'billingid' ),
+                new Field( 'payment_status' )
+               
+            );
+        
+            await editor.process(req.body);
+            console.log("payments");
       res.json( editor.data() );
             });
 
@@ -174,6 +203,40 @@ routes.post('/login',
           message:"Post request Paypal received"
         });
       });
+
+      ///function to send mail to the user 
+
+      routes.post('/api/sendmail',(req,res)=>{
+       
+       var tomail = req.body;
+       console.log(tomail);
+      var transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+          user: 'ssposaustralia@gmail.com',
+          pass: 'sspos@123'
+        }
+      });
+      
+      var mailOptions = {
+        from: 'Info@ssrtech.com.au',
+        to: 'shubhamdixit863@gmail.com',
+        subject: 'Enquiry On Your Website',
+        text: 'Hi you have an enqiury on your wesbite.Name'+req.body.name+'/Email-'+req.body.email+'/Message-'+req.body.email
+      };
+      
+      transporter.sendMail(mailOptions, function(error, info){
+        if (error) {
+          console.log(error);
+        } else {
+          res.json({
+            message:"Query Sent SuccesFully",
+          })
+        }
+      });
+      
+      });
+        
 
 
         function authenticationMiddleware () {  

@@ -177,16 +177,14 @@ getpaymentstaus(id:string){
 paypalpayment(payment:Payment){
     return this.http.post("http://localhost:3000/api/payment/paypal",payment)
 }
-addNew(userId:string) {
+
+//this function sends mail to the client about the enquiry plus stores it in database
+sendmail(userdata:any) {
     var headers = new Headers();
     const user  = 
-       console.log(userId);
+       console.log(userdata);
        headers.append('Content-Type', 'application/X-www-form-urlencoded');
-       this.http.post('http://localhost:3000/api/sendmail',userId).subscribe((data) => {
-        
-          console.log('mail sent');
-        
-            });
+      return  this.http.post('http://localhost:3000/api/sendmail',userdata);
        
        
    }

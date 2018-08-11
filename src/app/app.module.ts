@@ -26,6 +26,8 @@ import {  CanDeactivateGuard } from './payment.guard';
 import { PaymentfailComponent } from './paymentfail/paymentfail.component';
 import { BlogComponent } from './blog/blog.component';
 import { FaqsComponent } from './faqs/faqs.component';
+import { NgxSpinnerModule } from 'ngx-spinner';
+import { SampleComponent } from './sample/sample.component';
 import { TermsconditionComponent } from './termscondition/termscondition.component';
 import { RefundPolicyComponent } from './refund-policy/refund-policy.component';
 
@@ -43,6 +45,7 @@ const routes: Routes = [
   { path: 'shop', component: ShopComponent },
   { path: 'blog', component: BlogComponent },
   { path: 'faqs', component: FaqsComponent },
+  { path: 'sample', component: SampleComponent },
   { path: 'termscondition', component: TermsconditionComponent },
   { path: 'refundpolicy', component: RefundPolicyComponent },
 
@@ -69,6 +72,7 @@ const routes: Routes = [
   
     BlogComponent,
     FaqsComponent,
+    SampleComponent,
     TermsconditionComponent,
     RefundPolicyComponent,
 
@@ -80,7 +84,8 @@ const routes: Routes = [
     FormsModule,
     NgxPayPalModule,
     HttpClientModule,
-    FlashMessagesModule.forRoot()
+    FlashMessagesModule.forRoot(),
+    NgxSpinnerModule
 
   ],
   providers: [AuthGuard,CanDeactivateGuard],
