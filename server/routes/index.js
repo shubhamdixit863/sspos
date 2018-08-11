@@ -2,7 +2,7 @@ const routes = require('express').Router();
 const con=require('../mysql.js');
 const uuidv1 = require('uuid/v1');
 const dateTime = require('node-datetime');
-
+const  nodemailer = require('nodemailer');//to send mail through node
 const passport = require('passport');
 let knex=require('../knex.js');
 let {
@@ -174,6 +174,40 @@ routes.post('/login',
           message:"Post request Paypal received"
         });
       });
+
+      ///function to send mail to the user 
+
+      routes.post('/api/sendmail',(req,res)=>{
+       
+       var tomail = req.body;
+       console.log(tomail);
+      var transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+          user: 'ssposaustralia@gmail.com',
+          pass: 'sspos@123'
+        }
+      });
+      
+      var mailOptions = {
+        from: 'Info@ssrtech.com.au',
+        to: 'shubhamdixit863@gmail.com',
+        subject: 'Enquiry On Your Website',
+        text: 'Hi you have an enqiury on your wesbite.Name'+req.body.name+'/Email-'+req.body.email+'/Message-'+req.body.email
+      };
+      
+      transporter.sendMail(mailOptions, function(error, info){
+        if (error) {
+          console.log(error);
+        } else {
+          res.json({
+            message:"Query Sent SuccesFully",
+          })
+        }
+      });
+      
+      });
+        
 
 
         function authenticationMiddleware () {  
