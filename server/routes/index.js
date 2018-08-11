@@ -30,6 +30,10 @@ routes.get('/', (req, res) => {
     routes.get('/cod', authenticationMiddleware (),(req, res) => {
       res.render('order')
       });
+
+      routes.get('/payments', authenticationMiddleware (),(req, res) => {
+        res.render('payments')
+        });
       
 
 routes.post('/login',
@@ -89,6 +93,31 @@ routes.post('/login',
         
             await editor.process(req.body);
             console.log("hello");
+      res.json( editor.data() );
+            });
+
+//payments table
+           
+          routes.all('/payments', async function(req, res) {
+            //console.log("System call test01");
+            console.log(JSON.stringify(req.body));
+            
+            
+            let editor = new Editor( knex, 'paypal_payments' )
+            .fields(
+                new Field( 'id' ),
+                new Field( 'intent' ),
+                new Field( 'orderid' ),
+                new Field( 'payerid' ),
+                new Field( 'paymentid' ),
+                new Field( 'paymenttoken' ),
+                new Field( 'billingid' ),
+                new Field( 'payment_status' )
+               
+            );
+        
+            await editor.process(req.body);
+            console.log("payments");
       res.json( editor.data() );
             });
 
