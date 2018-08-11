@@ -44,17 +44,19 @@
       </div>
       <div class="checkout-left">	
         <div class="checkout-left-basket animated wow slideInLeft" data-wow-delay=".5s">
+          <h3>Total Price:{{cartvalue}}</h3>
         <a  class="ui orange basic button" href="/">Continue Shopping</a>
-        
         <div class="clearfix"> </div>
       </div>
       <hr>
-      <div class="row">
-       <div class="col-6">
+      
+      <div class="row" id="row" style=" margin-top:100px;  ">
+      
+        <div class="col-sm-8">
            <br>
         
         <fieldset>
-            <legend id="txt"><b>Enter Details:</b></legend>
+            <legend id="txt"><b>Enter Details:</b></legend> 
           <br>  
          
         <form  #userform = "ngForm" (submit)="usersubmit(userform)">
@@ -96,7 +98,7 @@
   </form>
   </fieldset>
   </div>
-  <div  class="col-6" style="margin-top:260px;">
+  <div  class="col-sm-4" >
       <flash-messages></flash-messages>
 
   </div>
