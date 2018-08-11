@@ -207,20 +207,27 @@ routes.post('/login',
       ///function to send mail to the user 
 
       routes.post('/api/sendmail',(req,res)=>{
-       
-       var tomail = req.body;
-       console.log(tomail);
-      var transporter = nodemailer.createTransport({
+        var da =dateTime.create();
+        var date = da.format('Y-m-d H:M:S');
+        var message =req.body.message;
+        var tomail = req.body.email;
+        var name =req.body.name;
+       var number ="not-applicable";
+       var value =[
+        [date,message,tomail,name,number]
+      ];
+     ;
+       var transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
-          user: 'ssposaustralia@gmail.com',
-          pass: 'sspos@123'
+          user: '',
+          pass: ''
         }
       });
       
       var mailOptions = {
-        from: 'Info@ssrtech.com.au',
-        to: 'shubhamdixit863@gmail.com',
+        from: '',
+        to: tomail,
         subject: 'Enquiry On Your Website',
         text: 'Hi you have an enqiury on your wesbite.Name'+req.body.name+'/Email-'+req.body.email+'/Message-'+req.body.email
       };
@@ -232,8 +239,20 @@ routes.post('/login',
           res.json({
             message:"Query Sent SuccesFully",
           })
+            //if successfully sendede data insertion in enquire table
+ 
+      console.log(tomail,name,message); 
+     
+      var sql = "INSERT INTO enquire (date_t,msg,email,name,number) VALUES ?";
+      con.query(sql,[value], function (err, result) {
+        if (err) throw err;
+        console.log("1 record inserted");
+      });
         }
       });
+
+    
+      
       
       });
         
