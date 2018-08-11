@@ -15,8 +15,8 @@ var options = {
   host: 'localhost',
   port: 3306,
   user: 'root',
-  password: '',
-  database: 'abtus52q_beebags'
+  password: 'root',
+  database: 'sspos'
 };
 const sessionStore = new MySQLStore(options);
 
@@ -92,6 +92,36 @@ passport.serializeUser(function(user, done) {
 passport.deserializeUser(function(user, done) {
   done(null, user);
 });
+app.post('/api/sendmail',(req,res)=>{
+  var nodemailer = require('nodemailer');
+ var tomail = req.body.userId;
+ console.log(tomail);
+var transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: '',
+    pass: ''
+  }
+});
+
+var mailOptions = {
+  from: '',
+  to: 'sp140898@gmail.com',
+  subject: 'Sending Email using Node.js',
+  text: 'That was easy!'
+};
+
+transporter.sendMail(mailOptions, function(error, info){
+  if (error) {
+    console.log(error);
+  } else {
+    console.log('Email sent: ' + info.response);
+  }
+});
+
+});
+  
+
 
 
 

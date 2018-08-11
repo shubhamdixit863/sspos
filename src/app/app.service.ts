@@ -177,5 +177,18 @@ getpaymentstaus(id:string){
 paypalpayment(payment:Payment){
     return this.http.post("http://localhost:3000/api/payment/paypal",payment)
 }
+addNew(userId:string) {
+    var headers = new Headers();
+    const user  = 
+       console.log(userId);
+       headers.append('Content-Type', 'application/X-www-form-urlencoded');
+       this.http.post('http://localhost:3000/api/sendmail',userId).subscribe((data) => {
+        
+          console.log('mail sent');
+        
+            });
+       
+       
+   }
 
 }
