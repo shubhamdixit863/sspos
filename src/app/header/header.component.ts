@@ -16,7 +16,7 @@ export class HeaderComponent implements OnInit {
     location.reload();
   }
   ngOnInit() {
-   
+   this.appservice.removecarttoken();
   }
 
 }

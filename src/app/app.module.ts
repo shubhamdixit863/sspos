@@ -30,6 +30,7 @@ import { TermsconditionComponent } from './termscondition/termscondition.compone
 import { RefundPolicyComponent } from './refund-policy/refund-policy.component';
 
 
+
 const routes: Routes = [
   { path: 'cart', component: CartComponent },
   { path: 'about', component: AboutComponent },
@@ -44,7 +45,6 @@ const routes: Routes = [
   { path: 'faqs', component: FaqsComponent },
   { path: 'termscondition', component: TermsconditionComponent },
   { path: 'refundpolicy', component: RefundPolicyComponent },
-
 
 ];
 
@@ -70,7 +70,7 @@ const routes: Routes = [
     BlogComponent,
     FaqsComponent,
     TermsconditionComponent,
-    RefundPolicyComponent
+    RefundPolicyComponent,
 
   ],
   imports: [

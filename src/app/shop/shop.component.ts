@@ -29,6 +29,7 @@ export class ShopComponent implements OnInit {
   constructor(private appservice:AppService) { }
 
   ngOnInit() {
+    this.appservice.removecarttoken();
   }
   addproduct(product){
    

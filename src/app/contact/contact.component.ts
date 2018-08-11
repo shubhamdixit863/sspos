@@ -12,14 +12,15 @@ import { AppService } from 'src/app/app.service';
 })
 export class ContactComponent implements OnInit {
 
-  constructor(private appService:AppService) { }
+  constructor(private appservice:AppService) { }
 
   ngOnInit() {
+    this.appservice.removecarttoken();
   }
 
   contactDetails(formObj:NgForm){
     var userId = formObj.value.Email;
-   this.appService.addNew(userId);
+   this.appservice.addNew(userId);
      console.log(formObj.value.Name);
      console.log(formObj.value.Email);
      console.log(formObj.value.Message);
