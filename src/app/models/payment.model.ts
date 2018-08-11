@@ -1,9 +1,10 @@
 export class Payment{
+    customerid:string;
     intent:string;
     orderID:string;
     payerID:string;
-    paymentID:string;
-    paymentToken:string;
+    paymentID:any;
+    paymentToken:any;
     
     billingid:string;
     status:string;

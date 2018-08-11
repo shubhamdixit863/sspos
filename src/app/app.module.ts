@@ -21,6 +21,13 @@ import { PaymentComponent } from './payment/payment.component';
 import { AuthGuard } from './auth.guard';
 import { FlashMessagesModule } from 'angular2-flash-messages';
 import { FinalstatusComponent } from './finalstatus/finalstatus.component';
+import { ShopComponent } from './shop/shop.component';
+import {  CanDeactivateGuard } from './payment.guard';
+import { PaymentfailComponent } from './paymentfail/paymentfail.component';
+import { BlogComponent } from './blog/blog.component';
+import { FaqsComponent } from './faqs/faqs.component';
+import { TermsconditionComponent } from './termscondition/termscondition.component';
+import { RefundPolicyComponent } from './refund-policy/refund-policy.component';
 
 
 const routes: Routes = [
@@ -28,9 +35,16 @@ const routes: Routes = [
   { path: 'about', component: AboutComponent },
   { path: '', component: CombinedComponent },
 
-  { path: 'payment', component: PaymentComponent,canActivate:[AuthGuard] },
+  { path: 'payment', component: PaymentComponent,canActivate:[AuthGuard],canDeactivate:[CanDeactivateGuard]},
   { path: 'orderstatus', component: FinalstatusComponent,canActivate:[AuthGuard] },
+  { path: 'paymentfail', component: PaymentfailComponent,canActivate:[AuthGuard] },
   { path: 'contact', component: ContactComponent },
+  { path: 'shop', component: ShopComponent },
+  { path: 'blog', component: BlogComponent },
+  { path: 'faqs', component: FaqsComponent },
+  { path: 'termscondition', component: TermsconditionComponent },
+  { path: 'refundpolicy', component: RefundPolicyComponent },
+
 
 ];
 
@@ -50,7 +64,14 @@ const routes: Routes = [
     ContactComponent,
     PaymentComponent,
     FinalstatusComponent,
+    ShopComponent,
+    PaymentfailComponent,
   
+    BlogComponent,
+    FaqsComponent,
+    TermsconditionComponent,
+    RefundPolicyComponent
+
   ],
   imports: [
     BrowserModule,
@@ -62,7 +83,7 @@ const routes: Routes = [
     FlashMessagesModule.forRoot()
 
   ],
-  providers: [AuthGuard],
+  providers: [AuthGuard,CanDeactivateGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
