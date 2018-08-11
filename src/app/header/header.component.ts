@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AppService } from '../app.service';
+import { MessageService } from '../message.service';
 
 @Component({
   selector: 'app-header',
@@ -9,14 +10,17 @@ import { AppService } from '../app.service';
 export class HeaderComponent implements OnInit {
 
   //totalproducts:number;
-  constructor(private appservice:AppService) { }
+  constructor(private appservice:AppService,private msg:MessageService) { }
   //totalproducts= this.appservice.gettotalproducts();
+  //this function removes cart products and relaod the page
   emptycart(){
-    this.appservice.removeall();
+   this.appservice.removeall();
     location.reload();
   }
+
   ngOnInit() {
    
   }
+
 
 }
