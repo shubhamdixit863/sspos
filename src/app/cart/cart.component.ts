@@ -48,9 +48,9 @@ usersubmit(formObj:NgForm){
 }
 
 else{
+ 
 
-
- var user:User={name:formObj.value.name,email:formObj.value.email,phone:formObj.value.phone,address:formObj.value.address,payment:formObj.value.gender};
+ var user:User={name:formObj.value.name,email:formObj.value.email,phone:formObj.value.phone,address:formObj.value.address,payment:formObj.value.gender,comments:formObj.value.comment};
  var currentcart=this.appservice.getproducts();
  
 this.appservice.userinsert(user,currentcart).subscribe(
