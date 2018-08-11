@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 import { FlashMessagesService } from 'angular2-flash-messages';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Observable } from 'rxjs';
+import { MessageService } from '../message.service';
 @Component({
   selector: 'app-cart',
   templateUrl: './cart.component.html',
@@ -17,13 +18,14 @@ export class CartComponent implements OnInit {
   carts:Cart[]=[];
   cartvalue:number; //total cost of cart
   emptydata:any;
- 
+  deletecart=false;
   flag:number=0;
-  private cartclear: Observable<boolean>;
-  constructor(private appservice:AppService,private router: Router,private _flashMessagesService: FlashMessagesService,private spinner: NgxSpinnerService) { }
+  
+  constructor(private msg:MessageService, private appservice:AppService,private router: Router,private _flashMessagesService: FlashMessagesService,private spinner: NgxSpinnerService) { }
    
-
+ 
   getcartproducts(){
+    
     this.carts=this.appservice.getproducts();
   }
 
@@ -59,6 +61,8 @@ this.appservice.userinsert(user,currentcart).subscribe(
   error => { console.log(error); // Error if any
   },
   ()=> { 
+  
+    
     //saving cart token to session storage for checking purpose
     this.appservice.storecartoken(this.emptydata.message);
     console.log(this.emptydata.message);
@@ -71,15 +75,15 @@ this.appservice.userinsert(user,currentcart).subscribe(
       //this.router.navigate(['/orderstatus']);
       //this.appservice.removecarttoken();//removing cart token as well
       //alert("Thanks For Your Cash On Delivery Order");
-      //location.href="/orderstatus";
-      this.router.navigateByUrl('/sample', {skipLocationChange: true}).then(()=>
-this.router.navigate(["/orderstatus"]));
+      location.href="/orderstatus";
+     // this.router.navigateByUrl('/cart', {skipLocationChange: true}).then(()=>
+//this.router.navigate(["/orderstatus"]));
       
      
     }
     
     else if(formObj.value.gender=="Paypal"){
-      alert("Paypal");
+      this.spinner.hide();
      //location.href="/payment";
      this.router.navigate(['/payment']);
     }
@@ -95,6 +99,7 @@ this.router.navigate(["/orderstatus"]));
 
 
   ngOnInit(): void {
+   
   this.getcartproducts();
    this.getcartvalue();
   

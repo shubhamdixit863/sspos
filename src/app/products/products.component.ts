@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component,OnInit } from '@angular/core';
 import { Product } from '../models/product.model';
 import { AppService } from '../app.service';
 
@@ -7,7 +7,7 @@ import { AppService } from '../app.service';
   templateUrl: './products.component.html',
   styleUrls: ['./products.component.css']
 })
-export class ProductsComponent   {
+export class ProductsComponent implements OnInit  {
   products :Product[]=[
 {id:"xy1",name:"SSR-3000-15-POS-TERMINAL",picture:"a.jpg",price:1375,category:"screentills"},
 {id:"xy2",name:"SSR-T86E SCALE",picture:"b.jpg",price:1,category:"cashregister"},
@@ -38,7 +38,16 @@ export class ProductsComponent   {
     alert("Product added to the cart");
    }
    
+
+  ngOnInit() {
+    this.appservice.removecarttoken();
+    
   }
+}
+   
+
+
+  
   
 
  

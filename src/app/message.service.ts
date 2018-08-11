@@ -5,7 +5,7 @@ import { Observable, Subject } from 'rxjs';
 export class MessageService {
     private subject = new Subject<any>();
  
-    sendMessage(message: string) {
+    sendMessage(message: number) {
         this.subject.next({ text: message });
     }
  
