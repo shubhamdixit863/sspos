@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AppService } from '../app.service';
 
 @Component({
   selector: 'app-termscondition',
@@ -7,9 +8,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TermsconditionComponent implements OnInit {
 
-  constructor() { }
+  constructor(private appservice:AppService) { }
 
   ngOnInit() {
+    this.appservice.removecarttoken();
   }
+
 
 }

@@ -102,6 +102,8 @@ this.appservice.userinsert(user,currentcart).subscribe(
    
   this.getcartproducts();
    this.getcartvalue();
+   this.appservice.removecarttoken();
+
   
   }
 }
