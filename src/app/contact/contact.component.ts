@@ -20,13 +20,6 @@ export class ContactComponent implements OnInit {
   }
 
   contactDetails(formObj:NgForm){
-<<<<<<< HEAD
-    var userId = formObj.value.Email;
-   this.appservice.addNew(userId);
-     console.log(formObj.value.Name);
-     console.log(formObj.value.Email);
-     console.log(formObj.value.Message);
-=======
     this.spinner.show();
     var email = formObj.value.Email;
     var name = formObj.value.Name;
@@ -46,7 +39,6 @@ export class ContactComponent implements OnInit {
      }
    )
      
->>>>>>> a1c45d72c60ff834fa2f11b74c4e926a7aa1d8aa
   }
  
 
