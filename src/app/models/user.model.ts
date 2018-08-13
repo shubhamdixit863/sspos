@@ -4,4 +4,5 @@ export class User{
     phone:string;
     address:string;
     payment:string;
+    comments:string;
 }

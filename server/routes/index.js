@@ -139,11 +139,12 @@ routes.post('/login',
           var address=req.body.user.address;
           var phone=req.body.user.phone;
           var payment=req.body.user.payment;
+          var comments=req.body.user.comments;
           var records = [
-            [name,email,totalprice,transactionid,productname,formatted,address,phone,payment],
+            [name,email,totalprice,transactionid,productname,formatted,address,phone,payment,comments],
             
           ];
-          var sql = "INSERT INTO payment (name,email,amount,cutomerid,productname,date_t,address,phone,payment_id) VALUES ?";
+          var sql = "INSERT INTO payment (name,email,amount,cutomerid,productname,date_t,address,phone,payment_id,comments) VALUES ?";
           con.query(sql,[records], function (err, result) {
             if (err) throw err;
             console.log("1 record inserted");

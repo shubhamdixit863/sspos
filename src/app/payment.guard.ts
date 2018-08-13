@@ -10,7 +10,7 @@ export class CanDeactivateGuard implements CanDeactivate<PaymentComponent> {
     return Observable.create(function(observer) {
       if (target.hasChanges()) {
         observer.next(true);
-      } else if(window.confirm('Do you really want to cancel?')) {
+      } else if(window.confirm('Do you really want to cancel the payment ,you have to start Fresh?')) {
         observer.next(true);
       } 
       else {
