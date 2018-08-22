@@ -12,7 +12,7 @@ export class PaymentComponent implements OnInit {
 //totalpay:number;
 payment:Payment;
 changesSaved=false;
-  constructor(private appservice:AppService,private router:Router) { }
+  constructor(public appservice:AppService,private router:Router) { }
 
   ngOnInit() {
     this.initConfig();

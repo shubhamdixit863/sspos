@@ -31,6 +31,7 @@ import { SampleComponent } from './sample/sample.component';
 import { TermsconditionComponent } from './termscondition/termscondition.component';
 import { RefundPolicyComponent } from './refund-policy/refund-policy.component';
 
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 
 
 const routes: Routes = [
@@ -85,10 +86,11 @@ const routes: Routes = [
     NgxPayPalModule,
     HttpClientModule,
     FlashMessagesModule.forRoot(),
-    NgxSpinnerModule
+    NgxSpinnerModule,
+    
 
   ],
-  providers: [AuthGuard,CanDeactivateGuard],
+  providers: [AuthGuard,CanDeactivateGuard,{provide: LocationStrategy, useClass: HashLocationStrategy}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

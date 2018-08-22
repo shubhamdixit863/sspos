@@ -29,6 +29,7 @@ export class ShopComponent implements OnInit {
   constructor(private appservice:AppService) { }
 
   ngOnInit() {
+    //location.reload();
     //removing cart token such that user cant go back to payment page or success or finalpage
     this.appservice.removecarttoken();
   }
