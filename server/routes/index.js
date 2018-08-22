@@ -11,6 +11,15 @@ let {
   
 } = require("datatables.net-editor-server");
 
+// transporter for nodemailer 
+var transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: '',
+    pass: ''
+  }
+});//transporter for mail
+
 
 routes.get('/', (req, res) => {
   console.log(req.user);
@@ -139,16 +148,62 @@ routes.post('/login',
           var address=req.body.user.address;
           var phone=req.body.user.phone;
           var payment=req.body.user.payment;
-          var comments=req.body.user.comments;
+         
           var records = [
-            [name,email,totalprice,transactionid,productname,formatted,address,phone,payment,comments],
+            [name,email,totalprice,transactionid,productname,formatted,address,phone,payment],
             
           ];
-          var sql = "INSERT INTO payment (name,email,amount,cutomerid,productname,date_t,address,phone,payment_id,comments) VALUES ?";
+          var sql = "INSERT INTO payment (name,email,amount,cutomerid,productname,date_t,address,phone,payment_id) VALUES ?";
           con.query(sql,[records], function (err, result) {
-            if (err) throw err;
+            if (err) {
+              //error in insertion or failed
+              console.log(err);
+              var mailOptions = {
+                from: '',
+                to: email,
+                subject: "transaction FAILED",
+                text: ' transaction failed. Name:'+name+",Customerid:"+transactionid+",Productname:"+productname+",date:"+formatted+",Paymentid:"+payment+",totalprice:"+totalprice+"."
+              };
+              transporter.sendMail(mailOptions, function(error, info){
+                if (error) {
+                  console.log(error);
+                } else {
+                  res.json({
+                    message:"cod mail failed",
+                  })
+                    //if successfully sendede data insertion in enquire table
+         
+              console.log("cod mail failed"); 
+             
+                }
+              });
+
+            }
+            else{
             console.log("1 record inserted");
+            //mail send when insertion is succesfull without error
+            var mailOptions = {
+              from: '',
+              to: email,
+              subject: 'transaction successfull',
+              text: 'transaction Successfull. Name:'+name+",Customerid:"+transactionid+",Productname:"+productname+",date:"+formatted+",Paymentid:"+payment+",totalprice:"+totalprice+"."
+            };
+            transporter.sendMail(mailOptions, function(error, info){
+              if (error) {
+                console.log(error);
+              } else {
+                res.json({
+                  message:"cod mail SuccesFully",
+                })
+                  //if successfully sendede data insertion in enquire table
+       
+            console.log("cod mail succesfull"); 
+           
+              }
+            });//mailer succesfull
+            }//else end
           });
+         
          
           console.log(productname);
           console.log(totalprice);
@@ -192,12 +247,51 @@ routes.post('/login',
           [customerid,intent,orderID,payerID,paymentID,paymentToken,billingid,status],
           
         ];
+        var mailid;
 
-        var sql = "INSERT INTO `paypal_payments`(	`customerid`, `intent`, `orderid`, `payerid`, `paymentid`, `paymenttoken`, `billingid`, `payment_status`) VALUES ?";
+        var sql = "INSERT INTO `paypal_payments`(	`id`, `intent`, `orderid`, `payerid`, `paymentid`, `paymenttoken`, `billingid`, `payment_status`) VALUES ?";
         con.query(sql,[records], function (err, result) {
           if (err) throw err;
           console.log("1 record inserted");
         });
+        //first we select the email from paypal table on using customerid
+        var sql2 ="select email from payment where cutomerid=?";
+        con.query(sql2,[customerid],function (err, result2, fields) {
+          
+            if (err) {
+              console.log(err);
+             }
+            else{//paypal mailer
+// if no error in insertion
+              console.log("this is the data");
+              console.log(result2);
+  
+              mailid =result2;
+              mailid.forEach(m=>{
+  //paypal mailer
+   var mailOptions = {
+          from: '',
+          to: m.email,
+          subject: 'Paypal Payment',
+          text: 'paypal payment successfull. id:'+customerid+",orderid:"+orderID+",Paymentid:"+paymentID+",Payerid:"+payerID+",status:"+status+"."
+        };
+        
+        transporter.sendMail(mailOptions, function(error, info){
+          if (error) {
+            console.log(error);
+          } else {
+           
+              //if successfully sendede data insertion in enquire 
+              console.log("successfull payment with paypal")
+          }
+        });
+  
+              });
+            }//else end
+           
+         
+            
+          });
 
         console.log(req.body);
         res.json({
@@ -218,13 +312,7 @@ routes.post('/login',
         [date,message,tomail,name,number]
       ];
      ;
-       var transporter = nodemailer.createTransport({
-        service: 'gmail',
-        auth: {
-          user: '',
-          pass: ''
-        }
-      });
+      
       
       var mailOptions = {
         from: '',
@@ -255,6 +343,35 @@ routes.post('/login',
     
       
       
+      });
+
+      //subscribe mail
+      routes.post('/api/subscribe',(req,res)=>{
+ var mailid =req.body.email;
+ var mailOptions = {
+  from: '',
+  to: mailid,
+  subject: 'thanks for subscribe',
+  text: 'Hi there, thanks for subscribing our portal'
+};
+
+transporter.sendMail(mailOptions, function(error, info){
+  if (error) {
+    console.log(error);
+  } else {
+    
+      //if successfully sendede data insertion in enquire table
+
+/*
+var sql = "INSERT INTO subscribe (email) VALUES ?";
+con.query(sql,[email], function (err, result) {
+  if (err) throw err;
+  console.log("1 record inserted in subscribe");
+});*/
+  }
+});
+ 
+ 
       });
         
 

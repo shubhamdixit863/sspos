@@ -11,7 +11,7 @@
         <table class="timetable_sub table">
           <thead>
             <tr>
-              <th>SL No.</th>	
+          	
               <th>Product</th>
               <th>Quantity</th>
               <th>Product Name</th>
@@ -20,23 +20,23 @@
             </tr>
           </thead>
           <tr class="rem1" valign="middle" *ngFor="let cart of carts;let i=index">
-              <td class="invert">{{i}}</td>
+          
               <td class="invert-image"><a href="#"><img src="assets/productimages/{{cart?.product.picture}}" alt=" " class="img-responsive" /></a></td>
               <td class="invert">
                  <div class="quantity"> 
                   <div class="quantity-select">                           
                    
-                    <div class="entry value"><span>{{cart?.quantity}}</span></div>
+                    <div class="entry value" style="font-size: 10px;"><span>{{cart?.quantity}}</span></div>
                    
                   </div>
                 </div>
               </td>
-              <td class="invert" >{{cart?.product.name}}</td>
+              <td class="invert" style="font-size: 16px;">{{cart?.product.name}}</td>
              
-              <td class="invert">${{cart?.product.price}}</td>
+              <td class="invert" style="font-size: 14px;">${{cart?.product.price}}</td>
               <td class="invert">
                 <div class="rem">
-                  <div class="close1"><button class="ui orange basic button" (click)="removeproduct(cart?.product)">Remove</button></div>
+                 <button class="ui orange basic button btn-sm" (click)="removeproduct(cart?.product)"> <i class="fa fa-remove"></i></button>
                 </div>
               </td>
             </tr>

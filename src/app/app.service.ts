@@ -189,4 +189,15 @@ sendmail(userdata:any) {
        
    }
 
+//subscribe function
+   ifSubscribe(mail:string){
+    let headers =new Headers();  
+   
+
+    var email =[mail];
+    console.log("got "+email);
+    return  this.http.post('http://localhost:3000/api/subscribe',email);
+
+   }
+
 }
