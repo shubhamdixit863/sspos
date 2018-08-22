@@ -29,6 +29,7 @@ export class PaymentfailComponent implements OnInit {
       error => { console.log(error); // Error if any
       },
       ()=> { 
+        setInterval(function(){ location.reload() }, 5000);
         //removing cart token from here such that this page is for only one time view
     this.appservice.removecarttoken();
   }

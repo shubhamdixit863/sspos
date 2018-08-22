@@ -72,10 +72,10 @@ this.appservice.userinsert(user,currentcart).subscribe(
       this.appservice.removeall();//removing cart so that we can start afresh
      
       //this._flashMessagesService.show('Thanks For your Order ,Your transaction id is'+this.appservice.getcarttoken(), { cssClass: 'alert-success', timeout: 100000 });
-      //this.router.navigate(['/orderstatus']);
+      this.router.navigate(['/orderstatus']);
       //this.appservice.removecarttoken();//removing cart token as well
       //alert("Thanks For Your Cash On Delivery Order");
-      location.href="/orderstatus";
+      //location.href="/orderstatus";
      // this.router.navigateByUrl('/cart', {skipLocationChange: true}).then(()=>
 //this.router.navigate(["/orderstatus"]));
       
@@ -102,7 +102,8 @@ this.appservice.userinsert(user,currentcart).subscribe(
    
   this.getcartproducts();
    this.getcartvalue();
-   this.appservice.removecarttoken();
+   //for backward movement from browser
+  this.appservice.removecarttoken();
 
   
   }

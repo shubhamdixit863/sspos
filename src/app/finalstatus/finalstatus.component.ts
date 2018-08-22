@@ -16,7 +16,7 @@ export class FinalstatusComponent implements OnInit {
   constructor(private appservice:AppService) { }
 
   ngOnInit() {
-    
+    //location.reload();
     this.appservice.getpaymentstaus(this.appservice.getcarttoken()).subscribe(
       data => {
         console.log(data.message[0].name);
@@ -29,8 +29,11 @@ export class FinalstatusComponent implements OnInit {
       error => { console.log(error); // Error if any
       },
       ()=> { 
+        
         //removing cart token from here such that this page is for only one time view
     this.appservice.removecarttoken();
+    setInterval(function(){ location.reload() }, 4000);
+   
   }
 )
 

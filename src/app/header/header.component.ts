@@ -10,7 +10,7 @@ import { MessageService } from '../message.service';
 export class HeaderComponent implements OnInit {
 
   //totalproducts:number;
-  constructor(private appservice:AppService,private msg:MessageService) { }
+  constructor(public appservice:AppService,private msg:MessageService) { }
   //totalproducts= this.appservice.gettotalproducts();
   //this function removes cart products and relaod the page
   emptycart(){
@@ -19,7 +19,7 @@ export class HeaderComponent implements OnInit {
   }
 
   ngOnInit() {
-   this.appservice.removecarttoken();
+   //this.appservice.removecarttoken();
   }
 
 
