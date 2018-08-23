@@ -196,7 +196,7 @@ sendmail(userdata:any) {
 
     var email =[mail];
     console.log("got "+email);
-    return  this.http.post('http://localhost:3000/api/subscribe',email);
+    return  this.http.post('http://49.50.107.59:3000/api/subscribe',email);
 
    }
 

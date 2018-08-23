@@ -1,6 +1,7 @@
 const routes = require('express').Router();
 const con=require('../mysql.js');
-const uuidv1 = require('uuid/v1');
+//const uuidv1 = require('uuid/v1');
+const orderid = require('order-id')('SSPOS')
 const dateTime = require('node-datetime');
 const  nodemailer = require('nodemailer');//to send mail through node
 const passport = require('passport');
@@ -15,8 +16,8 @@ let {
 var transporter = nodemailer.createTransport({
   service: 'gmail',
   auth: {
-    user: '',
-    pass: ''
+    user: 'searchingmyself660@gmail.com',
+    pass: 'am@IITDELHI'
   }
 });//transporter for mail
 
@@ -51,6 +52,7 @@ routes.post('/login',
  
   ));
 
+  //logout route
     
       routes.get('/logout', (req, res) => {
         req.logout();
@@ -58,7 +60,7 @@ routes.post('/login',
         res.redirect('/');
         });
 
-
+//datatable route
         routes.all('/datatable', async function(req, res) {
           console.log("System call test01");
           console.log(JSON.stringify(req.body));
@@ -130,7 +132,7 @@ routes.post('/login',
       res.json( editor.data() );
             });
 
-         //apiroutes for angular front end
+         //apiroutes for angular front end------------------------------------------------
          
          routes.post("/api/payment",(req,res)=>{
           var productname="Products-";
@@ -140,7 +142,8 @@ routes.post('/login',
            productname+=","+req.body.cart[i].product.name;
            totalprice+=req.body.cart[i].product.price;
           }
-          var transactionid=uuidv1();
+          //const id = 
+          var transactionid=orderid.generate()
           var dt = dateTime.create();
           var formatted = dt.format('Y-m-d H:M:S');
           var name=req.body.user.name;
@@ -158,35 +161,19 @@ routes.post('/login',
             if (err) {
               //error in insertion or failed
               console.log(err);
-              var mailOptions = {
-                from: '',
-                to: email,
-                subject: "transaction FAILED",
-                text: ' transaction failed. Name:'+name+",Customerid:"+transactionid+",Productname:"+productname+",date:"+formatted+",Paymentid:"+payment+",totalprice:"+totalprice+"."
-              };
-              transporter.sendMail(mailOptions, function(error, info){
-                if (error) {
-                  console.log(error);
-                } else {
-                  res.json({
-                    message:"cod mail failed",
-                  })
-                    //if successfully sendede data insertion in enquire table
-         
-              console.log("cod mail failed"); 
              
-                }
-              });
 
             }
             else{
             console.log("1 record inserted");
             //mail send when insertion is succesfull without error
+            //Cash on delivery mail
+            if(payment=="COD"){
             var mailOptions = {
               from: '',
               to: email,
-              subject: 'transaction successfull',
-              text: 'transaction Successfull. Name:'+name+",Customerid:"+transactionid+",Productname:"+productname+",date:"+formatted+",Paymentid:"+payment+",totalprice:"+totalprice+"."
+              subject: 'Your Cash On Delivery Order is SuccessFull',
+              text: 'Order Successfull. Name:'+name+", Customerid:"+transactionid+",Productname:"+productname+",date:"+formatted+",Paymentid:"+payment+",totalprice:$"+totalprice+"."
             };
             transporter.sendMail(mailOptions, function(error, info){
               if (error) {
@@ -201,6 +188,29 @@ routes.post('/login',
            
               }
             });//mailer succesfull
+          }
+
+          else{
+            var mailOptions = {
+              from: '',
+              to: email,
+              subject: 'Your Order',
+              text: 'Please Complete the payment For following Order. Name:'+name+", Customerid:"+transactionid+",Productname:"+productname+",date:"+formatted+",Paymentid:"+payment+",totalprice:$"+totalprice+"."
+            };
+            transporter.sendMail(mailOptions, function(error, info){
+              if (error) {
+                console.log(error);
+              } else {
+                res.json({
+                  message:"cod mail SuccesFully",
+                })
+                  //if successfully sendede data insertion in enquire table
+       
+            console.log("cod mail succesfull"); 
+           
+              }
+            });//mailer succesfull
+          }
             }//else end
           });
          
@@ -249,20 +259,23 @@ routes.post('/login',
         ];
         var mailid;
 
-        var sql = "INSERT INTO `paypal_payments`(	`id`, `intent`, `orderid`, `payerid`, `paymentid`, `paymenttoken`, `billingid`, `payment_status`) VALUES ?";
+        var sql = "INSERT INTO `paypal_payments`(	`customerid`, `intent`, `orderid`, `payerid`, `paymentid`, `paymenttoken`, `billingid`, `payment_status`) VALUES ?";
         con.query(sql,[records], function (err, result) {
           if (err) throw err;
           console.log("1 record inserted");
         });
         //first we select the email from paypal table on using customerid
         var sql2 ="select email from payment where cutomerid=?";
-        con.query(sql2,[customerid],function (err, result2, fields) {
+        con.query(sql2,[customerid],function (err, result2, fields) { 
           
             if (err) {
               console.log(err);
              }
             else{//paypal mailer
 // if no error in insertion
+if(status=="Payment Failed"){
+
+
               console.log("this is the data");
               console.log(result2);
   
@@ -273,7 +286,7 @@ routes.post('/login',
           from: '',
           to: m.email,
           subject: 'Paypal Payment',
-          text: 'paypal payment successfull. id:'+customerid+",orderid:"+orderID+",Paymentid:"+paymentID+",Payerid:"+payerID+",status:"+status+"."
+          text: 'Paypal payment Failed. id:'+customerid+",orderid:"+orderID+",Paymentid:"+paymentID+",Payerid:"+payerID+",status:"+status+"."
         };
         
         transporter.sendMail(mailOptions, function(error, info){
@@ -288,7 +301,34 @@ routes.post('/login',
   
               });
             }//else end
+
+            else{
+              console.log("this is the data");
+              console.log(result2);
+  
+              mailid =result2;
+              mailid.forEach(m=>{
+  //paypal mailer
+   var mailOptions = {
+          from: '',
+          to: m.email,
+          subject: 'Paypal Payment',
+          text: 'Paypal payment successfull. id:'+customerid+",orderid:"+orderID+",Paymentid:"+paymentID+",Payerid:"+payerID+",status:"+status+"."
+        };
+        
+        transporter.sendMail(mailOptions, function(error, info){
+          if (error) {
+            console.log(error);
+          } else {
            
+              //if successfully sendede data insertion in enquire 
+              console.log("successfull payment with paypal")
+          }
+        });
+  
+              });
+            }
+          }
          
             
           });
