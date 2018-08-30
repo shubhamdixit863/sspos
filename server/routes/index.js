@@ -152,7 +152,7 @@ routes.post('/login',
           var address=req.body.user.address;
           var phone=req.body.user.phone;
           var payment=req.body.user.payment;
-          var maillist = 'krishtyagi277@gmail.com,'+email+'';
+          var maillist = 'shubhamdixit863@gmail.com,'+email+'';
           var messageContent;
           var messageSubject;
           console.log("payment method:"+payment);
