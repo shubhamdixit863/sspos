@@ -22,7 +22,7 @@ var transporter = nodemailer.createTransport({
 });//transporter for mail 
 
 var othermail="shubhamdixit865@gmail.com";
-
+//for admin login on server
 routes.get('/', (req, res) => {
   console.log(req.user);
   console.log(req.isAuthenticated());
@@ -134,7 +134,7 @@ routes.post('/login',
             });
 
          //apiroutes for angular front end------------------------------------------------
-         
+         //************two mails will be sent here only */
          routes.post("/api/payment",(req,res)=>{
           var productname="Products-";
           var totalprice=0;
@@ -224,6 +224,8 @@ routes.post('/login',
 
          });
 
+
+         ///////////////////////////////////////
          routes.post("/api/payment/update",(req,res)=>{
            var token=req.body.token;
            console.log(req.body);
