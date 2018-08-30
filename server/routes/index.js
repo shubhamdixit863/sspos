@@ -152,6 +152,10 @@ routes.post('/login',
           var address=req.body.user.address;
           var phone=req.body.user.phone;
           var payment=req.body.user.payment;
+          var maillist = 'krishtyagi277@gmail.com,'+email+'';
+          var messageContent;
+          var messageSubject;
+          console.log("payment method:"+payment);
          
           var records = [
             [name,email,totalprice,transactionid,productname,formatted,address,phone,payment],
@@ -170,48 +174,39 @@ routes.post('/login',
             //mail send when insertion is succesfull without error
             //Cash on delivery mail
             if(payment=="COD"){
-            var mailOptions = {
-              from: '',
-              to:othermail, email,
-              subject: 'Your Cash On Delivery Order is SuccessFull',
-              text: 'Order Successfull. Name:'+name+", Customerid:"+transactionid+",Productname:"+productname+",date:"+formatted+",Paymentid:"+payment+",totalprice:$"+totalprice+"."
-            };
-            transporter.sendMail(mailOptions, function(error, info){
-              if (error) {
-                console.log(error);
-              } else {
-                res.json({
-                  message:"cod mail SuccesFully",
-                })
-                  //if successfully sendede data insertion in enquire table
-       
-            console.log("cod mail succesfull"); 
-           
-              }
-            });//mailer succesfull
+              console.log("COD selected");
+              messageContent='Order Successfull. Name:'+name+", Customerid:"+transactionid+",Productname:"+productname+",date:"+formatted+",Paymentid:"+payment+",totalprice:$"+totalprice+".";
+             messageSubject ='Your Cash On Delivery Order is SuccessFull';
+          }
+          else{
+            console.log("Paypal selected");
+            messageContent = 'Please Complete the payment For following Order. Name:'+name+", Customerid:"+transactionid+",Productname:"+productname+",date:"+formatted+",Paymentid:"+payment+",totalprice:$"+totalprice+".";
+           messageSubject ='Your Order';
+         
           }
 
-          else{
-            var mailOptions = {
-              from: '',
-              to:othermail, email,
-              subject: 'Your Order',
-              text: 'Please Complete the payment For following Order. Name:'+name+", Customerid:"+transactionid+",Productname:"+productname+",date:"+formatted+",Paymentid:"+payment+",totalprice:$"+totalprice+"."
-            };
-            transporter.sendMail(mailOptions, function(error, info){
-              if (error) {
-                console.log(error);
-              } else {
-                res.json({
-                  message:"cod mail SuccesFully",
-                })
-                  //if successfully sendede data insertion in enquire table
-       
-            console.log("cod mail succesfull"); 
-           
-              }
-            });//mailer succesfull
-          }
+          var mailOptions = {
+            from: 'ssposcom@gmail.com',
+            to:maillist,
+            subject: messageSubject,
+            text: messageContent
+          };
+          transporter.sendMail(mailOptions, function(error, info){
+            if (error) {
+              console.log(error);
+            } else {
+              res.json({
+                message:"cod mail SuccesFully",
+              })
+                //if successfully sendede data insertion in enquire table
+     
+          console.log("cod mail succesfull"); 
+         
+            }
+          });//mailer succesfull
+
+
+
             }//else end
           });
          
