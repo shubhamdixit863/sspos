@@ -1,6 +1,7 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component,OnInit } from '@angular/core';
 import { AppService } from '../app.service';
 import { MessageService } from '../message.service';
+import { SharedService } from '../shared.service';
 
 @Component({
   selector: 'app-header',
@@ -8,9 +9,10 @@ import { MessageService } from '../message.service';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
-   @Input() flag=false;
+  flag=false;
+  subscription:any;
   //totalproducts:number;
-  constructor(public appservice:AppService,private msg:MessageService) { }
+  constructor(public appservice:AppService,private msg:MessageService,private ss: SharedService) { }
   //totalproducts= this.appservice.gettotalproducts();
   //this function removes cart products and relaod the page
   emptycart(){
@@ -22,6 +24,13 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit() {
    //this.appservice.removecarttoken();
+   //this hows the empty red one if cart gets filled
+   this.subscription = this.ss.getEmittedValue()
+      .subscribe(
+        item => this.flag=item,
+        
+      
+      );
    
   }
 
