@@ -35,10 +35,11 @@ hasChanges(){
 
   private initConfig(): void {
    
-    this.payPalConfig = new PayPalConfig(PayPalIntegrationType.ClientSideREST, PayPalEnvironment.Sandbox, {
+    this.payPalConfig = new PayPalConfig(PayPalIntegrationType.ClientSideREST, PayPalEnvironment.Production, {
       commit: true,
       client: {
-        sandbox: 'AZDxjDScFpQtjWTOUtWKbyN_bDt4OgqaF4eYXlewfBP4-8aqX3PiV8e1GWU6liB2CUXlkA59kJXE7M6R'
+        //sandbox: 'AZDxjDScFpQtjWTOUtWKbyN_bDt4OgqaF4eYXlewfBP4-8aqX3PiV8e1GWU6liB2CUXlkA59kJXE7M6R'
+        production:'AbFPOm1WI1jJW65WvmnQSPeLyRqAvKO9v7xTa2t4Nicp6jNWGX6PdVvZt8FphdyCc9l1x5YsORrwm2kS'
       },
       button: {
         label: 'paypal',
@@ -93,10 +94,11 @@ hasChanges(){
       onError: (err) => {
         console.log("Error");
         console.log(err);
+        this.router.navigate(['/paymentfail']);
       },
       transactions: [{
         amount: {
-          currency: 'USD',
+          currency: 'AUD',
           total:this.appservice.gettotalcartvalue()
         }
       }]

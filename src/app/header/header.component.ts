@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { AppService } from '../app.service';
 import { MessageService } from '../message.service';
 
@@ -8,7 +8,7 @@ import { MessageService } from '../message.service';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
-
+   @Input() flag=false;
   //totalproducts:number;
   constructor(public appservice:AppService,private msg:MessageService) { }
   //totalproducts= this.appservice.gettotalproducts();
@@ -16,10 +16,13 @@ export class HeaderComponent implements OnInit {
   emptycart(){
    this.appservice.removeall();
     location.reload();
+    this.flag=false;
   }
+  
 
   ngOnInit() {
    //this.appservice.removecarttoken();
+   
   }
 
 

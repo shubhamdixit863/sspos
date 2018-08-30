@@ -12,11 +12,11 @@ const passport = require('passport');
 const con=require('./mysql.js');
 const MySQLStore = require('express-mysql-session')(session);
 var options = {
-  host: 'localhost',
+  host: "localhost",
   port: 3306,
-  user: 'root',
-  password: '',
-  database: 'sspos'
+  user: "root",
+  password: "",
+  database: 'sspos',
 };
 const sessionStore = new MySQLStore(options);
 

@@ -16,11 +16,12 @@ let {
 var transporter = nodemailer.createTransport({
   service: 'gmail',
   auth: {
-    user: 'searchingmyself660@gmail.com',
-    pass: 'am@IITDELHI'
+    user: 'ssposcom@gmail.com',
+    pass: 'am@HAPPY123'
   }
-});//transporter for mail
+});//transporter for mail 
 
+var othermail="shubhamdixit865@gmail.com";
 
 routes.get('/', (req, res) => {
   console.log(req.user);
@@ -171,7 +172,7 @@ routes.post('/login',
             if(payment=="COD"){
             var mailOptions = {
               from: '',
-              to: email,
+              to:othermail, email,
               subject: 'Your Cash On Delivery Order is SuccessFull',
               text: 'Order Successfull. Name:'+name+", Customerid:"+transactionid+",Productname:"+productname+",date:"+formatted+",Paymentid:"+payment+",totalprice:$"+totalprice+"."
             };
@@ -193,7 +194,7 @@ routes.post('/login',
           else{
             var mailOptions = {
               from: '',
-              to: email,
+              to:othermail, email,
               subject: 'Your Order',
               text: 'Please Complete the payment For following Order. Name:'+name+", Customerid:"+transactionid+",Productname:"+productname+",date:"+formatted+",Paymentid:"+payment+",totalprice:$"+totalprice+"."
             };
@@ -284,7 +285,7 @@ if(status=="Payment Failed"){
   //paypal mailer
    var mailOptions = {
           from: '',
-          to: m.email,
+          to: m.email,othermail,
           subject: 'Paypal Payment',
           text: 'Paypal payment Failed. id:'+customerid+",orderid:"+orderID+",Paymentid:"+paymentID+",Payerid:"+payerID+",status:"+status+"."
         };
@@ -311,7 +312,7 @@ if(status=="Payment Failed"){
   //paypal mailer
    var mailOptions = {
           from: '',
-          to: m.email,
+          to: m.email,othermail,
           subject: 'Paypal Payment',
           text: 'Paypal payment successfull. id:'+customerid+",orderid:"+orderID+",Paymentid:"+paymentID+",Payerid:"+payerID+",status:"+status+"."
         };
@@ -356,7 +357,7 @@ if(status=="Payment Failed"){
       
       var mailOptions = {
         from: '',
-        to: tomail,
+        to:othermail, tomail ,
         subject: 'Enquiry On Your Website',
         text: 'Hi you have an enqiury on your wesbite.Name'+req.body.name+'/Email-'+req.body.email+'/Message-'+req.body.email
       };
@@ -387,19 +388,22 @@ if(status=="Payment Failed"){
 
       //subscribe mail
       routes.post('/api/subscribe',(req,res)=>{
+        console.log(req.body);
  var mailid =req.body.email;
  var mailOptions = {
   from: '',
-  to: mailid,
+  to: "shubhamdixit863@gmail.com",
   subject: 'thanks for subscribe',
-  text: 'Hi there, thanks for subscribing our portal'
+  text: 'Hi there, thanks for showing interest in Our Products ,We Will Connect With you Soon'
 };
 
 transporter.sendMail(mailOptions, function(error, info){
   if (error) {
     console.log(error);
   } else {
-    
+    res.json({
+      message:"Query Sent"
+    })
       //if successfully sendede data insertion in enquire table
 
 /*

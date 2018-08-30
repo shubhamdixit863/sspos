@@ -75,6 +75,20 @@ else{
 }
     
 }
+
+//checking if cart is empty or not
+checkifcartempty(){
+    const storedcart:Cart[]= this.getproducts();
+    if(storedcart != null){
+        //this.cartsize=storedcart.length;
+        return true;
+     }
+     else{
+         return false;
+     }
+     
+}
+
 //function to show the number of products currently present in cart
 gettotalproducts(){
     //getting stored cart from total products saved in local storage
@@ -129,7 +143,7 @@ userinsert(user:User,cart:Cart[])
 {
   
     var databaseinput={user:user,cart:cart};
-  return  this.http.post("http://49.50.107.59:3000/api/payment",databaseinput);
+  return  this.http.post("http://localhost:3000/api/payment",databaseinput);
 
 }
 
@@ -158,7 +172,7 @@ removecarttoken(){
 //update cash on delivery payment after token
 updatecod(token:string){
    
-    return  this.http.post("http://49.50.107.59:3000/api/payment/update",token);
+    return  this.http.post("http://localhost:3000/api/payment/update",token);
 }
 //getpayment status by sending session token 
 getpaymentstaus(id:string){
@@ -169,13 +183,13 @@ getpaymentstaus(id:string){
     //params.append("someParamKey", id)
     var x = { property:id }
 
-    return this.http.get<any>('http://49.50.107.59:3000/api/payment/status', { params: x } )
+    return this.http.get<any>('http://localhost:3000/api/payment/status', { params: x } )
    //var id=this.sessionstorage.get("paymentkey");
-     //this.http.get<any>("http://49.50.107.59:3000/api/payment/status");
+     //this.http.get<any>("http://localhost:3000/api/payment/status");
 
 }
 paypalpayment(payment:Payment){
-    return this.http.post("http://49.50.107.59:3000/api/payment/paypal",payment)
+    return this.http.post("http://localhost:3000/api/payment/paypal",payment)
 }
 
 //this function sends mail to the client about the enquiry plus stores it in database
@@ -184,19 +198,19 @@ sendmail(userdata:any) {
     const user  = 
        console.log(userdata);
        headers.append('Content-Type', 'application/X-www-form-urlencoded');
-      return  this.http.post('http://49.50.107.59:3000/api/sendmail',userdata);
+      return  this.http.post('http://localhost:3000/api/sendmail',userdata);
        
        
    }
 
 //subscribe function
-   ifSubscribe(mail:string){
-    let headers =new Headers();  
+   ifSubscribe(mail:any){
+    var headers =new Headers();  
    
-
-    var email =[mail];
-    console.log("got "+email);
-    return  this.http.post('http://49.50.107.59:3000/api/subscribe',email);
+    headers.append('Content-Type', 'application/X-www-form-urlencoded');
+    //var email =[mail];
+    console.log(mail);
+    return  this.http.post('http://localhost:3000/api/subscribe',mail);
 
    }
 
