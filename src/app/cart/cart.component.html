@@ -8,10 +8,10 @@
   <div class="container">
       <h3 class="animated wow slideInLeft" data-wow-delay=".5s">Your shopping cart</h3>
       <div class="checkout-right animated wow slideInUp" data-wow-delay=".5s">
-        <table class="timetable_sub table">
+        <table class="table timetable_sub">
           <thead>
             <tr>
-          	
+              <th>S.No</th>
               <th>Product</th>
               <th>Quantity</th>
               <th>Product Name</th>
@@ -20,23 +20,29 @@
             </tr>
           </thead>
           <tr class="rem1" valign="middle" *ngFor="let cart of carts;let i=index">
-          
-              <td class="invert-image"><a href="#"><img src="assets/productimages/{{cart?.product.picture}}" alt=" " class="img-responsive" /></a></td>
+              <td id="sno">{{ i+1 }}</td>
+              <td class="invert-image"><a href="#"><img id="product" src="assets/productimages/{{cart?.product.picture}}" alt=" " class="img-responsive" /></a></td>
               <td class="invert">
                  <div class="quantity"> 
-                  <div class="quantity-select">                           
-                   
-                    <div class="entry value" style="font-size: 10px;"><span>{{cart?.quantity}}</span></div>
-                   
+                  <div class="quantity-select">       
+                      <button type="button" class="btn btn-default btn-md">
+                          <span class="glyphicon glyphicon-minus"></span>-
+                        </button>                    
+                  <div id="quantity" style="border:1px solid lightgrey;" class="btn btn-default btn-md">
+                      {{cart?.quantity}}
+                  </div>
+                    <button  type="button" class="btn btn-default btn-md">
+                        <span class="glyphicon glyphicon-plus"></span>+
+                      </button>
                   </div>
                 </div>
               </td>
-              <td class="invert" style="font-size: 16px;">{{cart?.product.name}}</td>
+              <td class="invert" id="productname" style="font-size: 12px;">{{cart?.product.name}}</td>
              
-              <td class="invert" style="font-size: 14px;">${{cart?.product.price}}</td>
+              <td class="invert" id="price" style="font-size: 14px;">${{cart?.product.price}}</td>
               <td class="invert">
                 <div class="rem">
-                 <button class="ui orange basic button btn-sm" (click)="removeproduct(cart?.product)"> <i class="fa fa-remove"></i></button>
+                 <button class="ui orange basic btn-sm" style="border:1px solid red;" (click)="removeproduct(cart?.product)"> <i class="fa fa-remove"></i></button>
                 </div>
               </td>
             </tr>
