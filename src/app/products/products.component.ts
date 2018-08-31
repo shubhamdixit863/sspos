@@ -1,6 +1,7 @@
 import { Component,OnInit } from '@angular/core';
 import { Product } from '../models/product.model';
 import { AppService } from '../app.service';
+import { SharedService } from '../shared.service';
 
 @Component({
   selector: 'app-products',
@@ -29,13 +30,14 @@ export class ProductsComponent implements OnInit  {
   ];
   //
   //dependency injection of appservice
-  constructor(private appservice:AppService) { }
+  constructor(private appservice:AppService,private ss: SharedService) { }
 
   addproduct(product){
    
     //the method return true if success;
    this.appservice.addtocart(product,1)
     alert("Product added to the cart");
+    this.ss.change();
    }
    
 

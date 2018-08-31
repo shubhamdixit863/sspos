@@ -58,7 +58,7 @@
                 </a>
                
               </li>
-              <li ><a href="#" style="margin-left:8px; color:red"(click)="emptycart()" >empty</a></li>
+              <li *ngIf="this.flag"><a  href="#" style="margin-left:8px; color:red"(click)="emptycart()" >empty</a></li>
             </ul>
             <div class="hamburger_container">
               <i class="fa fa-bars" aria-hidden="true"></i>

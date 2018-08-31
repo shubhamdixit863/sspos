@@ -16,12 +16,13 @@ let {
 var transporter = nodemailer.createTransport({
   service: 'gmail',
   auth: {
-    user: 'searchingmyself660@gmail.com',
-    pass: 'am@IITDELHI'
+    user: 'ssposcom@gmail.com',
+    pass: 'am@HAPPY123'
   }
-});//transporter for mail
+});//transporter for mail 
 
-
+var othermail="shubhamdixit865@gmail.com";
+//for admin login on server
 routes.get('/', (req, res) => {
   console.log(req.user);
   console.log(req.isAuthenticated());
@@ -133,7 +134,7 @@ routes.post('/login',
             });
 
          //apiroutes for angular front end------------------------------------------------
-         
+         //************two mails will be sent here only */
          routes.post("/api/payment",(req,res)=>{
           var productname="Products-";
           var totalprice=0;
@@ -151,6 +152,10 @@ routes.post('/login',
           var address=req.body.user.address;
           var phone=req.body.user.phone;
           var payment=req.body.user.payment;
+          var maillist = 'shubhamdixit863@gmail.com,'+email+'';
+          var messageContent;
+          var messageSubject;
+          console.log("payment method:"+payment);
          
           var records = [
             [name,email,totalprice,transactionid,productname,formatted,address,phone,payment],
@@ -169,48 +174,39 @@ routes.post('/login',
             //mail send when insertion is succesfull without error
             //Cash on delivery mail
             if(payment=="COD"){
-            var mailOptions = {
-              from: '',
-              to: email,
-              subject: 'Your Cash On Delivery Order is SuccessFull',
-              text: 'Order Successfull. Name:'+name+", Customerid:"+transactionid+",Productname:"+productname+",date:"+formatted+",Paymentid:"+payment+",totalprice:$"+totalprice+"."
-            };
-            transporter.sendMail(mailOptions, function(error, info){
-              if (error) {
-                console.log(error);
-              } else {
-                res.json({
-                  message:"cod mail SuccesFully",
-                })
-                  //if successfully sendede data insertion in enquire table
-       
-            console.log("cod mail succesfull"); 
-           
-              }
-            });//mailer succesfull
+              console.log("COD selected");
+              messageContent='Order Successfull. Name:'+name+", Customerid:"+transactionid+",Productname:"+productname+",date:"+formatted+",Paymentid:"+payment+",totalprice:$"+totalprice+".";
+             messageSubject ='Your Cash On Delivery Order is SuccessFull';
+          }
+          else{
+            console.log("Paypal selected");
+            messageContent = 'Please Complete the payment For following Order. Name:'+name+", Customerid:"+transactionid+",Productname:"+productname+",date:"+formatted+",Paymentid:"+payment+",totalprice:$"+totalprice+".";
+           messageSubject ='Your Order';
+         
           }
 
-          else{
-            var mailOptions = {
-              from: '',
-              to: email,
-              subject: 'Your Order',
-              text: 'Please Complete the payment For following Order. Name:'+name+", Customerid:"+transactionid+",Productname:"+productname+",date:"+formatted+",Paymentid:"+payment+",totalprice:$"+totalprice+"."
-            };
-            transporter.sendMail(mailOptions, function(error, info){
-              if (error) {
-                console.log(error);
-              } else {
-                res.json({
-                  message:"cod mail SuccesFully",
-                })
-                  //if successfully sendede data insertion in enquire table
-       
-            console.log("cod mail succesfull"); 
-           
-              }
-            });//mailer succesfull
-          }
+          var mailOptions = {
+            from: 'ssposcom@gmail.com',
+            to:maillist,
+            subject: messageSubject,
+            text: messageContent
+          };
+          transporter.sendMail(mailOptions, function(error, info){
+            if (error) {
+              console.log(error);
+            } else {
+              res.json({
+                message:"cod mail SuccesFully",
+              })
+                //if successfully sendede data insertion in enquire table
+     
+          console.log("cod mail succesfull"); 
+         
+            }
+          });//mailer succesfull
+
+
+
             }//else end
           });
          
@@ -223,6 +219,8 @@ routes.post('/login',
 
          });
 
+
+         ///////////////////////////////////////
          routes.post("/api/payment/update",(req,res)=>{
            var token=req.body.token;
            console.log(req.body);
@@ -284,7 +282,7 @@ if(status=="Payment Failed"){
   //paypal mailer
    var mailOptions = {
           from: '',
-          to: m.email,
+          to: m.email,othermail,
           subject: 'Paypal Payment',
           text: 'Paypal payment Failed. id:'+customerid+",orderid:"+orderID+",Paymentid:"+paymentID+",Payerid:"+payerID+",status:"+status+"."
         };
@@ -311,7 +309,7 @@ if(status=="Payment Failed"){
   //paypal mailer
    var mailOptions = {
           from: '',
-          to: m.email,
+          to: m.email,othermail,
           subject: 'Paypal Payment',
           text: 'Paypal payment successfull. id:'+customerid+",orderid:"+orderID+",Paymentid:"+paymentID+",Payerid:"+payerID+",status:"+status+"."
         };
@@ -356,7 +354,7 @@ if(status=="Payment Failed"){
       
       var mailOptions = {
         from: '',
-        to: tomail,
+        to:othermail, tomail ,
         subject: 'Enquiry On Your Website',
         text: 'Hi you have an enqiury on your wesbite.Name'+req.body.name+'/Email-'+req.body.email+'/Message-'+req.body.email
       };
@@ -387,19 +385,22 @@ if(status=="Payment Failed"){
 
       //subscribe mail
       routes.post('/api/subscribe',(req,res)=>{
+        console.log(req.body);
  var mailid =req.body.email;
  var mailOptions = {
   from: '',
-  to: mailid,
+  to: "shubhamdixit863@gmail.com",
   subject: 'thanks for subscribe',
-  text: 'Hi there, thanks for subscribing our portal'
+  text: 'Hi there, thanks for showing interest in Our Products ,We Will Connect With you Soon'
 };
 
 transporter.sendMail(mailOptions, function(error, info){
   if (error) {
     console.log(error);
   } else {
-    
+    res.json({
+      message:"Query Sent"
+    })
       //if successfully sendede data insertion in enquire table
 
 /*
