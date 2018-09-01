@@ -12,7 +12,17 @@ export class HeaderComponent implements OnInit {
   flag=false;
   subscription:any;
   //totalproducts:number;
-  constructor(public appservice:AppService,private msg:MessageService,private ss: SharedService) { }
+  constructor(public appservice:AppService,private msg:MessageService,private ss: SharedService) {
+    this.subscription = this.ss.getEmittedValue()
+      .subscribe(
+       
+       ()=>{
+         this.changeflag();
+       }
+      
+      );
+
+   }
   //totalproducts= this.appservice.gettotalproducts();
   //this function removes cart products and relaod the page
   emptycart(){
@@ -20,17 +30,15 @@ export class HeaderComponent implements OnInit {
     location.reload();
     this.flag=false;
   }
-  
+  changeflag(){
+    this.flag=true;
+  }
 
   ngOnInit() {
+    
    //this.appservice.removecarttoken();
    //this hows the empty red one if cart gets filled
-   this.subscription = this.ss.getEmittedValue()
-      .subscribe(
-        item => this.flag=item,
-        
-      
-      );
+  
    
   }
 
