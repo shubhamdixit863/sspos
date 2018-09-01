@@ -1,3 +1,54 @@
+
+@media screen and (max-width: 680px) {
+    .btn{
+    width:60%;
+    height: 40%;
+    }
+    #textsize{
+        font-size:10px;
+    }
+    #sno{
+        font-size: 90%;
+    }
+    #product{
+        width:30px;
+    }
+    #productname{
+        font-size:10px;
+    }
+    .invert{
+        font-size:10px;
+          }
+          .table td, .table th {
+            padding: .3rem;
+         
+        }
+
+    .table > tbody > tr > th{
+        line-height: 1.12857143;
+        padding-top:1px;
+        vertical-align: center;
+        font-size:10px;
+        text-align:center;
+
+    }
+    .timetable_sub[_ngcontent-c4] th[_ngcontent-c4] {
+        background: #D8703F;
+        color: #fff !important;
+        text-transform: capitalize;
+        font-size: 10px;
+        border-right: 1px solid #A95832;
+    }
+    .table[_ngcontent-c4] > tbody[_ngcontent-c4] > tr[_ngcontent-c4] > td[_ngcontent-c4] {
+        line-height: 1.42857143;
+        padding-top: 25px;
+        vertical-align: center;
+        font-size: 20px;
+        text-align: center;
+    }
+    
+
+}
 .my-cart-b {
     background: none;
     text-decoration: none;
