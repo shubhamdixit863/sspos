@@ -22,13 +22,14 @@ export class AppService{
          
     }
 
+    
     //this function increase number of product and total price
     increasequantity(userproduct:Product,quantity:number){
         const storedcart:Cart[]= this.getproducts();
          //checking if the incoming product is already there
     let item = storedcart.find(p => p.product.id == userproduct.id); 
     item.quantity += quantity;
-    item.product.price=item.quantity*userproduct.price;//changin total price according to quantity
+    item.product.price=item.quantity*item.baseprice;//changin total price according to quantity
     this.storage.set(this.key, storedcart);//saving cart to the local storage    
 }
 
@@ -37,8 +38,8 @@ decreasequantity(userproduct:Product,quantity:number){
          //checking if the incoming product is already there
     let item = storedcart.find(p => p.product.id == userproduct.id); 
     if(item.quantity>1){
-        item.quantity -= quantity;
-        item.product.price=item.quantity*userproduct.price;//changin total price according to quantity
+        item.quantity = item.quantity-quantity;
+        item.product.price=item.quantity*item.baseprice;//changin total price according to quantity
         this.storage.set(this.key, storedcart);//saving cart to the local storage  
 
     }
@@ -47,12 +48,12 @@ decreasequantity(userproduct:Product,quantity:number){
     }
 }
 
- addtocart(userproduct:Product,quantity:number){
+ addtocart(userproduct:Product,quantity:number,baseprice:number){
      //calling get products in local stored cart to fetch product
     const storedcart:Cart[]= this.getproducts();
     if(storedcart.length==0){
          //creating a new cart element
-         const newcart:Cart={product:userproduct,quantity:quantity};
+         const newcart:Cart={product:userproduct,quantity:quantity,baseprice};
          //pushing that product in already stored cart
          storedcart.push(newcart);
          //saving the cart again
@@ -66,7 +67,7 @@ decreasequantity(userproduct:Product,quantity:number){
     //if incoming product is not there
     if (item === undefined) {
         //creating a new cart element
-        const newcart:Cart={product:userproduct,quantity:quantity};
+        const newcart:Cart={product:userproduct,quantity:quantity,baseprice:baseprice};
         //pushing that product in already stored cart
         storedcart.push(newcart);
         //saving the cart again

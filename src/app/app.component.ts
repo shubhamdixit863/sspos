@@ -7,7 +7,8 @@ import { AppService } from './app.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit  {
-  title = 'app';
+  title = 'SSPOS';
+  
 
   constructor(private appservice:AppService){
 

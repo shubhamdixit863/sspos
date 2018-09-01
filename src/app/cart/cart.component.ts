@@ -9,6 +9,7 @@ import { FlashMessagesService } from 'angular2-flash-messages';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Observable } from 'rxjs';
 import { MessageService } from '../message.service';
+import { Product } from '../models/product.model';
 @Component({
   selector: 'app-cart',
   templateUrl: './cart.component.html',
@@ -35,8 +36,10 @@ export class CartComponent implements OnInit {
 
 removeproduct(product){
   this.appservice.removeoneproduct(product);
-  alert("Product removed ");
-  location.reload();
+  this.router.navigateByUrl('/refresh', {skipLocationChange: true}).then(()=>
+  this.router.navigate(["/cart"]));
+ 
+ 
 }
 
 usersubmit(formObj:NgForm){
@@ -97,7 +100,17 @@ this.appservice.userinsert(user,currentcart).subscribe(
 }
 }
 
-
+increase(product:Product){
+  //alert("increased");
+  this.router.navigateByUrl('/refresh', {skipLocationChange: true}).then(()=>
+this.router.navigate(["/cart"]));
+  this.appservice.increasequantity(product,1);
+}
+decrease(product:Product){
+  this.router.navigateByUrl('/refresh', {skipLocationChange: true}).then(()=>
+  this.router.navigate(["/cart"]));
+  this.appservice.decreasequantity(product,1);
+}
   ngOnInit(): void {
    
   this.getcartproducts();

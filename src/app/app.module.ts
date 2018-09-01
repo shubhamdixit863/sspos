@@ -32,23 +32,25 @@ import { TermsconditionComponent } from './termscondition/termscondition.compone
 import { RefundPolicyComponent } from './refund-policy/refund-policy.component';
 
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
+import { RefreshComponent } from './refresh/refresh.component';
 
 
 const routes: Routes = [
-  { path: 'cart', component: CartComponent },
-  { path: 'about', component: AboutComponent },
-  { path: '', component: CombinedComponent },
+  { path: 'cart', component: CartComponent ,data: { title: 'Cart' }},
+  { path: 'about', component: AboutComponent,data: { title: 'ABOUT' } },
+  { path: '', component: CombinedComponent ,data: { title: 'SSPOS-HOME' }},
 
-  { path: 'payment', component: PaymentComponent,canActivate:[AuthGuard],canDeactivate:[CanDeactivateGuard]},
-  { path: 'orderstatus', component: FinalstatusComponent,canActivate:[AuthGuard] },
-  { path: 'paymentfail', component: PaymentfailComponent,canActivate:[AuthGuard] },
-  { path: 'contact', component: ContactComponent },
-  { path: 'shop', component: ShopComponent },
-  { path: 'blog', component: BlogComponent },
-  { path: 'faqs', component: FaqsComponent },
+  { path: 'payment', component: PaymentComponent,canActivate:[AuthGuard],canDeactivate:[CanDeactivateGuard],data: { title: 'Payment' }},
+  { path: 'orderstatus', component: FinalstatusComponent,canActivate:[AuthGuard],data: { title: 'OrderStatus' } },
+  { path: 'paymentfail', component: PaymentfailComponent,canActivate:[AuthGuard] ,data: { title: 'PaymentFailed' }},
+  { path: 'contact', component: ContactComponent ,data: { title: 'Contact' }},
+  { path: 'shop', component: ShopComponent ,data: { title: 'Shop' }},
+  { path: 'blog', component: BlogComponent,data: { title: 'Blog' } },
+  { path: 'faqs', component: FaqsComponent ,data: { title: 'FAQS' }},
   { path: 'sample', component: SampleComponent },
-  { path: 'termscondition', component: TermsconditionComponent },
-  { path: 'refundpolicy', component: RefundPolicyComponent },
+  { path: 'termscondition', component: TermsconditionComponent,data: { title: 'Terms And Conditions' } },
+  { path: 'refundpolicy', component: RefundPolicyComponent, data: { title: 'Refunds Policy' }},
+  {path: 'refresh',component:RefreshComponent}
 
 ];
 
@@ -76,6 +78,7 @@ const routes: Routes = [
     SampleComponent,
     TermsconditionComponent,
     RefundPolicyComponent,
+    RefreshComponent,
 
   ],
   imports: [

@@ -36,7 +36,7 @@ export class ShopComponent implements OnInit {
   addproduct(product){
    
     //the method return true if success;
-   this.appservice.addtocart(product,1)
+   this.appservice.addtocart(product,1,product.price)
     alert("Product added to the cart");
    }
    

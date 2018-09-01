@@ -9,18 +9,18 @@ import { SharedService } from '../shared.service';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
-  flag=false;
-  subscription:any;
+  //flag=false;
+  //subscription:any;
   //totalproducts:number;
   constructor(public appservice:AppService,private msg:MessageService,private ss: SharedService) {
-    this.subscription = this.ss.getEmittedValue()
-      .subscribe(
+    //this.subscription = this.ss.getEmittedValue()
+      //.subscribe(
        
-       ()=>{
-         this.changeflag();
-       }
+      //()=>{
+        // this.changeflag();
+       //}
       
-      );
+     // );
 
    }
   //totalproducts= this.appservice.gettotalproducts();
@@ -28,10 +28,10 @@ export class HeaderComponent implements OnInit {
   emptycart(){
    this.appservice.removeall();
     location.reload();
-    this.flag=false;
+    //this.flag=false;
   }
   changeflag(){
-    this.flag=true;
+   // this.flag=true;
   }
 
   ngOnInit() {

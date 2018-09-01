@@ -25,13 +25,13 @@
               <td class="invert">
                  <div class="quantity"> 
                   <div class="quantity-select">       
-                      <button type="button" class="btn btn-default btn-md">
+                      <button type="button" class="btn btn-default btn-md" (click)="this.decrease(cart?.product)">
                           <span class="glyphicon glyphicon-minus"></span>-
                         </button>                    
                   <div id="quantity" style="border:1px solid lightgrey;" class="btn btn-default btn-md">
                       {{cart?.quantity}}
                   </div>
-                    <button  type="button" class="btn btn-default btn-md">
+                    <button  type="button" class="btn btn-default btn-md" (click)="this.increase(cart?.product)">
                         <span class="glyphicon glyphicon-plus"></span>+
                       </button>
                   </div>
