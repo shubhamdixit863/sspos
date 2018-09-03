@@ -33,7 +33,7 @@ export class ProductsComponent implements OnInit  {
   constructor(private appservice:AppService,private ss: SharedService) { }
 
   addproduct(product){
-   
+   console.log(product);
     //the method return true if success;
    this.appservice.addtocart(product,1,product.price)
     alert("Product added to the cart");
