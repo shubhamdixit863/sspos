@@ -16,6 +16,7 @@ export class ProductDetailsComponent implements OnInit {
 public picture: string;
 public name: string;
 public price: number;
+endproduct:Product;
 
   producted :Product[]=[
     {id:"xy1",name:"SSR-3000-15-POS-TERMINAL",picture:"a.jpg",price:1375,category:"screentills"},
@@ -40,10 +41,11 @@ public price: number;
 
   constructor(private activatedroute: ActivatedRoute,private appservice:AppService,private ss: SharedService) { }
 
-  addproduct(product){
-   console.log(product);
+  addproduct(){
+   //console.log(product);
     //the method return true if success;
-   this.appservice.addtocart(product,1,product.price)
+    this.endproduct={id:this.id,name:this.name,picture:this.picture,price:this.price,category:this.category}
+   this.appservice.addtocart(this.endproduct,1,this.endproduct.price);
     alert("Product added to the cart");
     this.ss.change();
    }
