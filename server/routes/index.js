@@ -21,7 +21,7 @@ var transporter = nodemailer.createTransport({
   }
 });//transporter for mail 
 
-var othermail="ranjanfdo15@gmail.com";
+var othermail=".com";
 //for admin login on server
 routes.get('/', (req, res) => {
   console.log(req.user);
