@@ -33,6 +33,7 @@ import { RefundPolicyComponent } from './refund-policy/refund-policy.component';
 
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { RefreshComponent } from './refresh/refresh.component';
+import { ProductDetailsComponent } from './product-details/product-details.component';
 
 
 const routes: Routes = [
@@ -50,7 +51,8 @@ const routes: Routes = [
   { path: 'sample', component: SampleComponent },
   { path: 'termscondition', component: TermsconditionComponent,data: { title: 'Terms And Conditions' } },
   { path: 'refundpolicy', component: RefundPolicyComponent, data: { title: 'Refunds Policy' }},
-  {path: 'refresh',component:RefreshComponent}
+  {path: 'refresh',component:RefreshComponent},
+  {path: 'productdetails',component: ProductDetailsComponent}
 
 ];
 
@@ -79,6 +81,7 @@ const routes: Routes = [
     TermsconditionComponent,
     RefundPolicyComponent,
     RefreshComponent,
+    ProductDetailsComponent,
 
   ],
   imports: [

@@ -1,0 +1,43 @@
+<!-- New Arrivals -->
+
+<div class="new_arrivals">
+  <div class="container">
+    <br><br><br>
+    <div class="row">
+      <div class="col text-center">
+        <div class="section_title new_arrivals_title">
+          <h2>Product Details</h2>
+        </div>
+      </div>
+    </div>
+    
+    <div class="row">
+      <div class="col">
+        <div class="product-grid" >
+
+          <!-- Product 1 -->
+
+          <div class="product-item {{category}}">
+             
+            <div class="product discount product_filter">
+              <div class="product_image">
+                <img src="assets/productimages/{{picture}}" alt="">
+              </div>
+              <div class="favorite favorite_left"></div>
+              <div class="product_bubble product_bubble_right product_bubble_red d-flex flex-column align-items-center"><span>-$20</span></div>
+              <div class="product_info">
+                <h6 class="product_name">{{name}}</h6>
+                <div class="product_price">${{price}}<span>${{price+100}}</span></div>
+              </div>
+            </div>
+            <button class="red_button add_to_cart_button" (click)="addproduct(products)" >ADD TO CART</button>
+           
+          </div>
+
+          <!-- Product 2 -->
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

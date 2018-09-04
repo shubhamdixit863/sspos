@@ -49,6 +49,7 @@ decreasequantity(userproduct:Product,quantity:number){
 }
 
  addtocart(userproduct:Product,quantity:number,baseprice:number){
+  
      //calling get products in local stored cart to fetch product
     const storedcart:Cart[]= this.getproducts();
     if(storedcart.length==0){
