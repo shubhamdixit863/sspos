@@ -1,11 +1,10 @@
 //declaring a cart model for products to add
 
-export class Product{
+export class Productdetails{
     id:string;
     name:string;
    picture:string;
    price:number;
    category:string;
-   link:string;
- 
+  des: string;
 }

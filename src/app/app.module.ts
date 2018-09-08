@@ -34,6 +34,20 @@ import { RefundPolicyComponent } from './refund-policy/refund-policy.component';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { RefreshComponent } from './refresh/refresh.component';
 import { ProductDetailsComponent } from './product-details/product-details.component';
+import { Cashdrawer24Component } from './cashdrawer24/cashdrawer24.component';
+import { MagstripeComponent } from './magstripe/magstripe.component';
+import { Ssr250Component } from './ssr250/ssr250.component';
+import { Vfd890Component } from './vfd890/vfd890.component';
+import { Ssr300Component } from './ssr300/ssr300.component';
+import { Ssr3000Component } from './ssr3000/ssr3000.component';
+import { Ssr86eComponent } from './ssr86e/ssr86e.component';
+import { Ssr86e2017Component } from './ssr86e2017/ssr86e2017.component';
+import { SsrC86HComponent } from './ssr-c86-h/ssr-c86-h.component';
+import { SsrC86H2017Component } from './ssr-c86-h2017/ssr-c86-h2017.component';
+import { EpsondotmatrixComponent } from './epsondotmatrix/epsondotmatrix.component';
+import { Cd24Component } from './cd24/cd24.component';
+import { Ssr352Component } from './ssr352/ssr352.component';
+import { PortdataterminalComponent } from './portdataterminal/portdataterminal.component';
 
 
 const routes: Routes = [
@@ -52,7 +66,23 @@ const routes: Routes = [
   { path: 'termscondition', component: TermsconditionComponent,data: { title: 'Terms And Conditions' } },
   { path: 'refundpolicy', component: RefundPolicyComponent, data: { title: 'Refunds Policy' }},
   {path: 'refresh',component:RefreshComponent},
-  {path: 'productdetails',component: ProductDetailsComponent}
+  {path: 'productdetails',component: ProductDetailsComponent},
+  {path: 'cashdrawer24',component:    Cashdrawer24Component},
+  {path: 'magstripe',component:    MagstripeComponent},
+  {path: 'ssr250',component:    Ssr250Component},
+  {path: 'vfd890',component:       Vfd890Component},
+  {path: 'ssr300',component:       Ssr300Component},
+  {path: 'ssr3000',component:       Ssr3000Component},
+  {path: 'ssr86e',component:       Ssr86eComponent},
+  {path: 'ssr86e2017',component:       Ssr86e2017Component},
+  {path: 'ssrc86h',component:    SsrC86HComponent},
+  {path: 'ssrc86h2017',component:    SsrC86H2017Component},
+  {path: 'epsondotmatrix',component:     EpsondotmatrixComponent},
+  {path: 'cd24',component:     Cd24Component},
+  {path: 'ssr352',component:      Ssr352Component},
+  {path: 'portdataterminal',component:    PortdataterminalComponent},
+  {path: 'shopnow',component:          BestsellersComponent}
+
 
 ];
 
@@ -82,6 +112,20 @@ const routes: Routes = [
     RefundPolicyComponent,
     RefreshComponent,
     ProductDetailsComponent,
+    Cashdrawer24Component,
+    MagstripeComponent,
+    Ssr250Component,
+    Vfd890Component,
+    Ssr300Component,
+    Ssr3000Component,
+    Ssr86eComponent,
+    Ssr86e2017Component,
+    SsrC86HComponent,
+    SsrC86H2017Component,
+    EpsondotmatrixComponent,
+    Cd24Component,
+    Ssr352Component,
+    PortdataterminalComponent,
 
   ],
   imports: [

@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-banner',
@@ -7,8 +9,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BannerComponent implements OnInit {
 
-  constructor() { }
+  constructor(private router: Router) { }
 
+  alert(){
+    alert("Thanks for shopping here\nScroll down to check our NEW ARRIVALS");
+   
+  }
   ngOnInit() {
   }
 
