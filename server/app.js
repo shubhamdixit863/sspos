@@ -73,7 +73,7 @@ passport.use(new LocalStrategy(
      else if(results.length==0){
        done(null,false);
      }
-     else if(results[0].password==password){
+     else if(results[0].password==password && results[0]){
       return done(null, {user:results[0].user});
      }
      else if(results[0].password!=password){
